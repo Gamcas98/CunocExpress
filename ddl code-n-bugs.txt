@@ -1,0 +1,96 @@
+create table cliente (
+     nit INT NOT NULL,
+     nombre VARCHAR(35) NOT NULL,
+     direccion VARCHAR(35),
+     CONSTRAINT PK_NIT PRIMARY KEY(nit)
+     );
+
+create table usuario(
+	id VARCHAR(35) NOT NULL,
+	usuario VARCHAR(35) NOT NULL,
+	contraseña VARCHAR(35) NOT NULL,
+	tipoUsuario INT NOT NULL,
+	estado BOOLEAN,
+	CONSTRAINT PK_id PRIMARY KEY(id)
+	);
+
+create table destino (
+	nombre Varchar(35) NOT NULL,
+	costoDestino INT NOT NULL,
+	estadoCancelado BOOLEAN,
+	CONSTRAINT PK_NOMBRE PRIMARY KEY(nombre)
+	);
+
+create table ruta (
+	idRuta VARCHAR(35) NOT NULL,
+	nombreDestino VARCHAR(35) NOT NULL,
+	estado BOOLEAN,
+	cantPaquetesTotal INT,
+	CONSTRAINT PK_id PRIMARY KEY(idRuta),
+	CONSTRAINT FK_idDestino FOREIGN KEY(nombreDestino)
+	REFERENCES destino(nombre)
+	);
+
+create table puntoControl (
+	idPControl VARCHAR(35) NOT NULL,
+	idRutaP VARCHAR(35) NOT NULL,
+	tarifaOperacion INT NOT NULL,
+	paquetesPermitidos INT NOT NULL,
+	usuarioOperador VARCHAR(35),
+	estado BOOLEAN,
+	CONSTRAINT PK_id PRIMARY KEY(idPControl),
+	CONSTRAINT FK_idRuta FOREIGN KEY(idRutaP)
+	REFERENCES ruta(idRuta),
+	CONSTRAINT FK_usuarioOperador FOREIGN KEY(usuarioOperador)
+	REFERENCES usuario(id)
+	);
+
+create table paquete (
+	id VARCHAR(15) NOT NULL,
+	idPC VARCHAR(35),
+	nDestino VARCHAR(35) dNULL,
+	nitCli INT NOT NULL,
+	preIng INT NOT NULL,
+	costOper INT,
+	preLib INT NOT NULL,
+	peso INT NOT NULL,
+	eEntregado BOOLEAN,
+	ePriori BOOLEAN,
+	costPriori INT,
+	fechaI date,
+	fechaS date,
+	CONSTRAINT PK_id PRIMARY KEY(id),
+	CONSTRAINT FK_idPC FOREIGN KEY(idPC) REFERENCES puntoControl(idPControl),
+	CONSTRAINT FK_nitCli FOREIGN KEY(nitCli) REFERENCES cliente(nit),
+	CONSTRAINT FK_nDestino FOREIGN KEY(nDestino) REFERENCES destino(nombre)
+	);
+
+create table paquetePC (
+	idPaquete VARCHAR(15) NOT NULL,
+	idPC VARCHAR(35) NOT NULL,
+	horas INT NOT NULL,
+	tarifa INT NOT NULL,
+	total INT NOT NULL,
+	CONSTRAINT FK_idPaquete FOREIGN KEY(idPaquete) REFERENCES paquete(id),
+	CONSTRAINT FK_idPaquetePC FOREIGN KEY(idPC) REFERENCES puntoControl(idPControl)
+	);
+
+create table factura (
+	idFactura VARCHAR(35) NOT NULL,
+	nitCliente INT NOT NULL,
+	fecha DATE NOT NULL,
+	costoTotal INT NOT NULL,
+	CONSTRAINT PK_idFactura PRIMARY KEY(idFactura),
+	CONSTRAINT FK_nitCliente FOREIGN KEY(nitCliente) REFERENCES cliente(nit)
+	);
+
+create table registroFactura (
+	idFactura VARCHAR(35) NOT NULL,
+	idPaquete VARCHAR(15) NOT NULL,
+	pesoLib INT NOT NULL,
+	costoLib INT NOT NULL,
+	costoTotal INT NOT NULL,
+	CONSTRAINT FK_idFactura FOREIGN KEY(idFactura) REFERENCES factura(idFactura),
+	CONSTRAINT FK_idPaqueteRF FOREIGN KEY(idPaquete) REFERENCES paquete(id)
+	);
+
