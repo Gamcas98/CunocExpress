@@ -5,6 +5,10 @@
  */
 package UiAdmin;
 
+import Models.Usuario;
+import SQL.RegistrarUsuario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Gamcas
@@ -14,6 +18,9 @@ public class crearUser extends javax.swing.JPanel {
     /**
      * Creates new form crearUser
      */
+    RegistrarUsuario registros = new RegistrarUsuario();
+    Usuario usuario = new Usuario();
+    
     public crearUser() {
         initComponents();
     }
@@ -81,7 +88,7 @@ public class crearUser extends javax.swing.JPanel {
         jPanel1.add(jLabel6);
         jLabel6.setBounds(60, 240, 260, 50);
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Operador", "Recepcionista" }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Administrador", "Operador", "Recepcionista" }));
         jPanel1.add(cmbTipo);
         cmbTipo.setBounds(460, 290, 190, 50);
 
@@ -114,19 +121,81 @@ public class crearUser extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-
+        
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
-        String usuario = txtUsuario.getText();
+        String user = txtUsuario.getText();
         String contra = new String(txtContra.getPassword());
         String contra2 = new String(txtContra2.getPassword());
-
-        if (nombre.isEmpty() || apellido.isEmpty() || usuario.isEmpty() || contra.isEmpty() || contra2.isEmpty()) {
+        
+        if (nombre.isEmpty() || apellido.isEmpty() || user.isEmpty() || contra.isEmpty() || contra2.isEmpty()) {
             error.setText("Todos los campos son obligatorios");
+        } else {
+            if (contra.equals(contra2)) {
+                if (registros.existeUsuario(user) == 0) {
+                    
+                    usuario.setUsuario(user);
+                    usuario.setApellido(apellido);
+                    usuario.setContrasena(contra);
+                    usuario.setNombre(nombre);
+                    usuario.setTipo(cmbTipo.getSelectedIndex());
+                    usuario.setEstado("ACTIVO");
+                    usuario.setEstadoOperacion("INACTIVO");
+                    
+                    validar();
+                } else {
+                    error.setText("El Usuario ya existe");
+                }
+            } else {
+                error.setText("Verifique las contasenas");
+            }
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
-
-
+    
+    private void limpiar() {
+        txtNombre.setText("");
+        cmbTipo.setSelectedIndex(0);
+        txtApellido.setText("");
+        txtUsuario.setText("");
+        txtContra.setText("");
+        txtContra2.setText("");
+        error.setText("");
+        txtNombre.requestFocusInWindow();
+    }
+    
+    private void validar() {
+        switch (cmbTipo.getSelectedIndex()) {
+            case 0:
+                error.setText("Seleccione un tipo");
+                break;
+            case 1:
+                if (registros.crearUsuarios(usuario)) {
+                    JOptionPane.showMessageDialog(null, "Administrador Creado con exito");
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se ha podido crear el usuario");
+                }
+                break;
+            case 2:
+                if (registros.crearUsuarios(usuario)) {
+                    JOptionPane.showMessageDialog(null, "Operador Creado con exito");
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se ha podido crear el usuario");
+                }
+                break;
+            case 3:
+                if (registros.crearUsuarios(usuario)) {
+                    JOptionPane.showMessageDialog(null, "Recepcionista Creado con exito");
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se ha podido crear el usuario");
+                }
+                break;
+            default:
+                break;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JComboBox<String> cmbTipo;

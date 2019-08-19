@@ -5,6 +5,15 @@
  */
 package UiAdmin;
 
+import Models.Usuario;
+import SQL.ManejoTabla;
+import SQL.MetodosApoyo;
+import SQL.RegistrarUsuario;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Gamcas
@@ -14,8 +23,15 @@ public class edituser extends javax.swing.JPanel {
     /**
      * Creates new form crearUser
      */
+    public static int TODOS_LOS_USUARIOS = 1;
+    public static int MOSTRAR_USUARIO_BUSCADO = 2;
+
     public edituser() {
         initComponents();
+        ocultar(false);
+        mostrarUsuarios();
+        btnSave.setEnabled(false);
+
     }
 
     /**
@@ -27,18 +43,295 @@ public class edituser extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaUsuarios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        txtBusqueda = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
+        btnModificarNombre = new javax.swing.JButton();
+        lblContra = new javax.swing.JLabel();
+        lblNewContra = new javax.swing.JLabel();
+        btnCambiarContra = new javax.swing.JButton();
+        lblConfirContra = new javax.swing.JLabel();
+        errorNombre = new javax.swing.JLabel();
+        errorContra = new javax.swing.JLabel();
+        txtContra = new javax.swing.JPasswordField();
+        txtConfirm = new javax.swing.JPasswordField();
+        txtNewContra = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
 
-        jLabel1.setText("Ingrese Nombre ");
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("Seleccione un Usuario:");
+        add(jLabel2);
+        jLabel2.setBounds(250, 50, 220, 60);
+
+        tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsuariosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaUsuarios);
+
+        add(jScrollPane1);
+        jScrollPane1.setBounds(20, 130, 680, 670);
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setText("Buscar Usuario:");
         add(jLabel1);
-        jLabel1.setBounds(1580, 870, 120, 50);
+        jLabel1.setBounds(380, 810, 130, 40);
+
+        txtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBusquedaKeyTyped(evt);
+            }
+        });
+        add(txtBusqueda);
+        txtBusqueda.setBounds(510, 810, 190, 40);
+
+        jLabel3.setText("Apellido:");
+        add(jLabel3);
+        jLabel3.setBounds(850, 500, 120, 40);
+
+        jLabel4.setText("Usuario:");
+        add(jLabel4);
+        jLabel4.setBounds(1130, 80, 70, 40);
+
+        txtApellido.setEnabled(false);
+        add(txtApellido);
+        txtApellido.setBounds(850, 540, 180, 50);
+
+        txtNombre.setEnabled(false);
+        add(txtNombre);
+        txtNombre.setBounds(850, 400, 200, 50);
+
+        btnSave.setText("Guardar Cambios");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        add(btnSave);
+        btnSave.setBounds(1060, 690, 160, 70);
+
+        jLabel5.setText("Nombre:");
+        add(jLabel5);
+        jLabel5.setBounds(850, 360, 120, 40);
+
+        txtUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUser.setEnabled(false);
+        add(txtUser);
+        txtUser.setBounds(1060, 130, 200, 50);
+
+        btnModificarNombre.setText("Modificar Nombre");
+        btnModificarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarNombreActionPerformed(evt);
+            }
+        });
+        add(btnModificarNombre);
+        btnModificarNombre.setBounds(860, 240, 160, 70);
+
+        lblContra.setText("Contrasena actual:");
+        add(lblContra);
+        lblContra.setBounds(1240, 350, 120, 40);
+
+        lblNewContra.setText("Nueva Contrasena ");
+        add(lblNewContra);
+        lblNewContra.setBounds(1240, 490, 120, 40);
+
+        btnCambiarContra.setText("Cambiar Contrasena");
+        btnCambiarContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarContraActionPerformed(evt);
+            }
+        });
+        add(btnCambiarContra);
+        btnCambiarContra.setBounds(1240, 240, 160, 70);
+
+        lblConfirContra.setText("Confirmar Contrasena");
+        add(lblConfirContra);
+        lblConfirContra.setBounds(1470, 490, 130, 40);
+
+        errorNombre.setBackground(new java.awt.Color(255, 0, 0));
+        errorNombre.setForeground(new java.awt.Color(255, 0, 0));
+        add(errorNombre);
+        errorNombre.setBounds(810, 600, 260, 60);
+
+        errorContra.setBackground(new java.awt.Color(255, 0, 0));
+        errorContra.setForeground(new java.awt.Color(255, 0, 0));
+        add(errorContra);
+        errorContra.setBounds(1320, 610, 190, 60);
+        add(txtContra);
+        txtContra.setBounds(1240, 390, 200, 50);
+        add(txtConfirm);
+        txtConfirm.setBounds(1470, 530, 200, 50);
+        add(txtNewContra);
+        txtNewContra.setBounds(1240, 530, 200, 50);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyTyped
+        try {
+            ManejoTabla.mostrarTablas(tablaUsuarios, MOSTRAR_USUARIO_BUSCADO, txtBusqueda.getText());
+        } catch (ClassNotFoundException ex) {
+
+        }
+    }//GEN-LAST:event_txtBusquedaKeyTyped
+
+    private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
+        int fila = tablaUsuarios.getSelectedRow();
+        txtUser.setText((String) tablaUsuarios.getValueAt(fila, 0));
+        txtNombre.setText((String) tablaUsuarios.getValueAt(fila, 1));
+        txtApellido.setText((String) tablaUsuarios.getValueAt(fila, 2));
+    }//GEN-LAST:event_tablaUsuariosMouseClicked
+
+    private void btnModificarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarNombreActionPerformed
+
+        if (!txtUser.getText().isEmpty()) {
+            txtNombre.setEnabled(true);
+            txtApellido.setEnabled(true);
+            btnModificarNombre.setEnabled(false);
+            btnSave.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un usuario");
+        }
+
+    }//GEN-LAST:event_btnModificarNombreActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+        Usuario user = new Usuario();
+        RegistrarUsuario registro = new RegistrarUsuario();
+        String apellido = txtApellido.getText();
+        String nombre = txtNombre.getText();
+        String contra = new String(txtContra.getPassword());
+        String newContra = new String(txtNewContra.getPassword());
+        String comfirm = new String(txtConfirm.getPassword());
+        String usuario = txtUser.getText();
+        String contraRecuperada = MetodosApoyo.obtenerContra(usuario);
+
+        if (!txtNewContra.isEnabled()) {
+
+            if (apellido.isEmpty() || nombre.isEmpty()) {
+                errorNombre.setText("Los Campos no pueden estar vacios");
+
+            } else {
+
+                user.setApellido(apellido);
+                user.setNombre(nombre);
+                user.setUsuario(usuario);
+                user.setContrasena(contraRecuperada);
+                registro.editarUsuario(user);
+                limpiar();
+                mostrarUsuarios();
+                JOptionPane.showMessageDialog(null, "Se han modificado los datos con exito");
+
+            }
+        } else {
+            if (contra.equals(contraRecuperada) && newContra.equals(comfirm)) {
+
+                user.setApellido(apellido);
+                user.setNombre(nombre);
+                user.setUsuario(usuario);
+                user.setContrasena(newContra);
+                registro.editarUsuario(user);
+                mostrarUsuarios();
+                ocultar(false);
+                limpiar();
+                mostrarUsuarios();
+                JOptionPane.showMessageDialog(null, "Se han modificado los datos con exito");
+
+            } else {
+                errorContra.setText("Verifique las contrasenas");
+            }
+        }
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCambiarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContraActionPerformed
+        if (!txtUser.getText().isEmpty()) {
+            ocultar(true);
+            btnCambiarContra.setEnabled(false);
+            btnSave.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un usuario");
+        }
+    }//GEN-LAST:event_btnCambiarContraActionPerformed
+
+    private void ocultar(boolean bool) {
+        txtContra.setEnabled(bool);
+        txtConfirm.setEnabled(bool);
+        txtNewContra.setEnabled(bool);
+
+    }
+
+    private void limpiar() {
+        txtApellido.setText("");
+        txtBusqueda.setText("");
+        txtNombre.setText("");
+        txtConfirm.setText("");
+        txtContra.setText("");
+        txtUser.setText("");
+        txtNewContra.setText("");
+        errorContra.setText("");
+        errorNombre.setText("");
+        btnModificarNombre.setEnabled(true);
+        btnCambiarContra.setEnabled(true);
+        txtApellido.setEnabled(false);
+        txtNombre.setEnabled(false);
+        btnSave.setEnabled(false);
+    }
+
+    
+    private void mostrarUsuarios() {
+        try {
+            ManejoTabla.mostrarTablas(tablaUsuarios, TODOS_LOS_USUARIOS, null);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(edituser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCambiarContra;
+    private javax.swing.JButton btnModificarNombre;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JLabel errorContra;
+    private javax.swing.JLabel errorNombre;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblConfirContra;
+    private javax.swing.JLabel lblContra;
+    private javax.swing.JLabel lblNewContra;
+    private javax.swing.JTable tablaUsuarios;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtBusqueda;
+    private javax.swing.JPasswordField txtConfirm;
+    private javax.swing.JPasswordField txtContra;
+    private javax.swing.JPasswordField txtNewContra;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
