@@ -41,7 +41,7 @@ public class Login extends javax.swing.JFrame {
             Conexion.getConection();
         } catch (SQLException | ClassNotFoundException ex) {
         }
-        
+
     }
 
     /**
@@ -113,7 +113,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Vivaldi", 2, 36)); // NOI18N
         jLabel1.setText("Sign In");
         JpLogin.add(jLabel1);
-        jLabel1.setBounds(220, 60, 140, 50);
+        jLabel1.setBounds(240, 60, 140, 50);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuario.png"))); // NOI18N
         JpLogin.add(jLabel5);
@@ -156,6 +156,12 @@ public class Login extends javax.swing.JFrame {
         jLabel11.setText("Diseno y Desarrollo por: Gamcas");
         JpLogin.add(jLabel11);
         jLabel11.setBounds(210, 560, 200, 20);
+
+        txtContra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraKeyPressed(evt);
+            }
+        });
         JpLogin.add(txtContra);
         txtContra.setBounds(180, 310, 230, 50);
 
@@ -182,6 +188,30 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoActionPerformed
+        iniciarSesion();
+    }//GEN-LAST:event_btnIngresoActionPerformed
+
+    private void mostrarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContraActionPerformed
+        if (mostrarContra.isSelected()) {
+            txtContra.setEchoChar((char) 0);
+        } else {
+            txtContra.setEchoChar('•');
+        }
+    }//GEN-LAST:event_mostrarContraActionPerformed
+
+    private void txtContraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            iniciarSesion();
+        }
+    }//GEN-LAST:event_txtContraKeyPressed
+
+    private void limpiar() {
+        txtContra.setText("");
+        txtUser.setText("");
+        txtUser.requestFocus();
+    }
+
+    private void iniciarSesion() {
 
         usuario = new Usuario();
         registro = new RegistrarUsuario();
@@ -205,7 +235,7 @@ public class Login extends javax.swing.JFrame {
 
                         break;
                     case OPERARIO:
-                        PrincipalOperador operador= new PrincipalOperador();
+                        PrincipalOperador operador = new PrincipalOperador();
                         operador.setText(user);
                         operador.setVisible(true);
                         break;
@@ -224,24 +254,8 @@ public class Login extends javax.swing.JFrame {
         }
 
         limpiar();
-
-    }//GEN-LAST:event_btnIngresoActionPerformed
-
-    private void mostrarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContraActionPerformed
-        if (mostrarContra.isSelected()) {
-            txtContra.setEchoChar((char) 0);
-        } else {
-            txtContra.setEchoChar('•');
-        }
-    }//GEN-LAST:event_mostrarContraActionPerformed
-
-    private void limpiar() {
-        txtContra.setText("");
-        txtUser.setText("");
-        txtUser.requestFocus();
     }
-    
- 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpContenedor;

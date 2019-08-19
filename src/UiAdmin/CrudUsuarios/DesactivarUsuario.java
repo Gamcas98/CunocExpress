@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UiAdmin;
+package UiAdmin.CrudUsuarios;
 
 import Models.Usuario;
 import SQL.ManejoTabla;
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author Gamcas
  */
-public class desacUser extends javax.swing.JPanel {
+public class DesactivarUsuario extends javax.swing.JPanel {
 
    
     public static int TODOS_LOS_USUARIOS_ACTIVOS = 3;
@@ -24,7 +24,7 @@ public class desacUser extends javax.swing.JPanel {
     public static int BUSCAR_USUARIO_ACTIVO = 5;
     public static int BUSCAR_USUARIO_INACTIVO = 6;
 
-    public desacUser(int act_des) {
+    public DesactivarUsuario(int act_des) {
         initComponents();
 
         if (act_des == 1) {
@@ -177,7 +177,7 @@ public class desacUser extends javax.swing.JPanel {
         try {
             ManejoTabla.mostrarTablas(tablaUsuarios, mostrar, null);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(desacUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DesactivarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

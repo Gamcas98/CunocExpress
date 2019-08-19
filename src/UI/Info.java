@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UiAdmin;
+package UI;
 
 /**
  *
  * @author Gamcas
  */
-public class info extends javax.swing.JPanel {
+public class Info extends javax.swing.JPanel {
 
     /**
      * Creates new form crearUser
      */
-    public info() {
+    public Info() {
         initComponents();
     }
 

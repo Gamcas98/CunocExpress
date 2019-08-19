@@ -21,14 +21,13 @@ public class ManejoTabla {
 
         DefaultTaBleModel modelo = new DefaultTaBleModel();
         tabla.setModel(modelo);
-        modelo.fireTableDataChanged();
+        tabla.setRowHeight(40);
         tabla.getTableHeader().setReorderingAllowed(false);
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         //variables para almacenar la sentencia sql segun la necesidad de la tabla a mostrar
         //se explica para que se usa cada varibale en el case correspondiente
-        
         String queryUsuarios = "SELECT  Usuario, Nombre, Apellido FROM USUARIO ORDER BY Usuario ASC";
 
         String queryBusquedaUsuarios = "SELECT  Usuario, Nombre, Apellido FROM USUARIO WHERE Usuario LIKE ? ORDER BY Usuario ASC";
@@ -40,6 +39,10 @@ public class ManejoTabla {
         String queryBusquedaActivosInactivos = "SELECT  Usuario, Nombre, Apellido FROM USUARIO"
                 + " WHERE estado_operacion='INACTIVO' AND Estado=? AND Usuario LIKE ?"
                 + "ORDER BY Usuario ASC";
+
+        String queryDestinos = "SELECT * FROM DESTINO";
+        String queryBuscarDestinos = "SELECT * FROM DESTINO WHERE nombre_destino LIKE ?";
+
         try {
 
             switch (consulta) {
@@ -97,6 +100,24 @@ public class ManejoTabla {
                     modelo.addColumn("Usuario");
                     modelo.addColumn("Nombre");
                     modelo.addColumn("Apellido");
+                    break;
+                case 7:
+                    ps = Conexion.getConection().prepareStatement(queryDestinos);
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Destino");
+                    modelo.addColumn("Cuota");
+                    break;
+                case 8:
+                    ps = Conexion.getConection().prepareStatement(queryBuscarDestinos);
+                    ps.setString(1, "%" + nombre + "%");
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Destino");
+                    modelo.addColumn("Cuota");
+                    break;
+                case 9:
+                    ps = Conexion.getConection().prepareStatement(queryDestinos);
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Destino");
                     break;
 
             }

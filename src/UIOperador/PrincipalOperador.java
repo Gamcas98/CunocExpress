@@ -5,6 +5,10 @@
  */
 package UIOperador;
 
+import UI.Info;
+import UiAdmin.CrudUsuarios.CrearUsuario;
+import UiAdmin.CrudUsuarios.DesactivarUsuario;
+import UiAdmin.CrudUsuarios.EditUser;
 import UiAdmin.*;
 import SQL.Conexion;
 import UI.Login;
@@ -25,7 +29,7 @@ public class PrincipalOperador extends javax.swing.JFrame {
      * Creates new form FormAdministrador
      */
     ImageIcon icono = new ImageIcon("src/Imagenes/user.png");
-    info info = new info();
+    Info info = new Info();
     public static int PANTALLA_ACTIVAR = 1;
     public static int PANTALLA_DESACTIVAR = 2;
 
@@ -508,7 +512,7 @@ public class PrincipalOperador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDesactivarRutaMouseExited
 
     private void btnCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseClicked
-        crearUser crear = new crearUser();
+        CrearUsuario crear = new CrearUsuario();
         tituloPrincipal.setText("Creando Usuario...");
         JpInfo.removeAll();
         JpInfo.add(crear, BorderLayout.CENTER);
@@ -566,7 +570,7 @@ public class PrincipalOperador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarPuntoControlMouseExited
 
     private void btnEditarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarUsuarioMouseClicked
-        edituser edit = new edituser();
+        EditUser edit = new EditUser();
         tituloPrincipal.setText("Editando Usuario...");
         JpInfo.removeAll();
         JpInfo.add(edit, BorderLayout.CENTER);
@@ -590,7 +594,7 @@ public class PrincipalOperador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnDesUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesUsuarioMouseClicked
-        desacUser des = new desacUser(PANTALLA_DESACTIVAR);
+        DesactivarUsuario des = new DesactivarUsuario(PANTALLA_DESACTIVAR);
         tituloPrincipal.setText("Desactivando Usuario...");
         JpInfo.removeAll();
         JpInfo.add(des, BorderLayout.CENTER);
@@ -607,7 +611,7 @@ public class PrincipalOperador extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnActivateuserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivateuserMouseClicked
-        desacUser des = new desacUser(PANTALLA_ACTIVAR);
+        DesactivarUsuario des = new DesactivarUsuario(PANTALLA_ACTIVAR);
         tituloPrincipal.setText("Activando Usuario...");
         JpInfo.removeAll();
         JpInfo.add(des, BorderLayout.CENTER);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UiAdmin;
+package UiAdmin.CrudUsuarios;
 
 import Models.Usuario;
 import SQL.ManejoTabla;
@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Gamcas
  */
-public class edituser extends javax.swing.JPanel {
+public class EditUser extends javax.swing.JPanel {
 
     /**
      * Creates new form crearUser
@@ -26,7 +26,7 @@ public class edituser extends javax.swing.JPanel {
     public static int TODOS_LOS_USUARIOS = 1;
     public static int MOSTRAR_USUARIO_BUSCADO = 2;
 
-    public edituser() {
+    public EditUser() {
         initComponents();
         ocultar(false);
         mostrarUsuarios();
@@ -48,23 +48,25 @@ public class edituser extends javax.swing.JPanel {
         tablaUsuarios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtBusqueda = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtApellido = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        btnSave = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        txtUser = new javax.swing.JTextField();
-        btnModificarNombre = new javax.swing.JButton();
-        lblContra = new javax.swing.JLabel();
-        lblNewContra = new javax.swing.JLabel();
-        btnCambiarContra = new javax.swing.JButton();
-        lblConfirContra = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txtConfirm = new javax.swing.JPasswordField();
         errorNombre = new javax.swing.JLabel();
         errorContra = new javax.swing.JLabel();
-        txtContra = new javax.swing.JPasswordField();
-        txtConfirm = new javax.swing.JPasswordField();
+        lblConfirContra = new javax.swing.JLabel();
         txtNewContra = new javax.swing.JPasswordField();
+        lblNewContra = new javax.swing.JLabel();
+        txtContra = new javax.swing.JPasswordField();
+        lblContra = new javax.swing.JLabel();
+        btnCambiarContra = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        btnModificarNombre = new javax.swing.JButton();
+        txtUser = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        btnSave = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
@@ -108,56 +110,37 @@ public class edituser extends javax.swing.JPanel {
         add(txtBusqueda);
         txtBusqueda.setBounds(510, 810, 190, 40);
 
-        jLabel3.setText("Apellido:");
-        add(jLabel3);
-        jLabel3.setBounds(850, 500, 120, 40);
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setLayout(null);
+        jPanel1.add(txtConfirm);
+        txtConfirm.setBounds(640, 550, 200, 50);
 
-        jLabel4.setText("Usuario:");
-        add(jLabel4);
-        jLabel4.setBounds(1130, 80, 70, 40);
+        errorNombre.setBackground(new java.awt.Color(255, 0, 0));
+        errorNombre.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(errorNombre);
+        errorNombre.setBounds(60, 620, 260, 60);
 
-        txtApellido.setEnabled(false);
-        add(txtApellido);
-        txtApellido.setBounds(850, 540, 180, 50);
+        errorContra.setBackground(new java.awt.Color(255, 0, 0));
+        errorContra.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(errorContra);
+        errorContra.setBounds(520, 630, 190, 60);
 
-        txtNombre.setEnabled(false);
-        add(txtNombre);
-        txtNombre.setBounds(850, 400, 200, 50);
-
-        btnSave.setText("Guardar Cambios");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
-        add(btnSave);
-        btnSave.setBounds(1060, 690, 160, 70);
-
-        jLabel5.setText("Nombre:");
-        add(jLabel5);
-        jLabel5.setBounds(850, 360, 120, 40);
-
-        txtUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtUser.setEnabled(false);
-        add(txtUser);
-        txtUser.setBounds(1060, 130, 200, 50);
-
-        btnModificarNombre.setText("Modificar Nombre");
-        btnModificarNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarNombreActionPerformed(evt);
-            }
-        });
-        add(btnModificarNombre);
-        btnModificarNombre.setBounds(860, 240, 160, 70);
-
-        lblContra.setText("Contrasena actual:");
-        add(lblContra);
-        lblContra.setBounds(1240, 350, 120, 40);
+        lblConfirContra.setText("Confirmar Contrasena");
+        jPanel1.add(lblConfirContra);
+        lblConfirContra.setBounds(670, 510, 130, 40);
+        jPanel1.add(txtNewContra);
+        txtNewContra.setBounds(400, 550, 200, 50);
 
         lblNewContra.setText("Nueva Contrasena ");
-        add(lblNewContra);
-        lblNewContra.setBounds(1240, 490, 120, 40);
+        jPanel1.add(lblNewContra);
+        lblNewContra.setBounds(440, 510, 120, 40);
+        jPanel1.add(txtContra);
+        txtContra.setBounds(510, 410, 200, 50);
+
+        lblContra.setText("Contrasena actual:");
+        jPanel1.add(lblContra);
+        lblContra.setBounds(550, 370, 120, 40);
 
         btnCambiarContra.setText("Cambiar Contrasena");
         btnCambiarContra.addActionListener(new java.awt.event.ActionListener() {
@@ -165,28 +148,59 @@ public class edituser extends javax.swing.JPanel {
                 btnCambiarContraActionPerformed(evt);
             }
         });
-        add(btnCambiarContra);
-        btnCambiarContra.setBounds(1240, 240, 160, 70);
+        jPanel1.add(btnCambiarContra);
+        btnCambiarContra.setBounds(540, 260, 160, 70);
 
-        lblConfirContra.setText("Confirmar Contrasena");
-        add(lblConfirContra);
-        lblConfirContra.setBounds(1470, 490, 130, 40);
+        txtNombre.setEnabled(false);
+        jPanel1.add(txtNombre);
+        txtNombre.setBounds(90, 400, 200, 50);
 
-        errorNombre.setBackground(new java.awt.Color(255, 0, 0));
-        errorNombre.setForeground(new java.awt.Color(255, 0, 0));
-        add(errorNombre);
-        errorNombre.setBounds(810, 600, 260, 60);
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setText("Edicion Usuario");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(360, 20, 150, 80);
 
-        errorContra.setBackground(new java.awt.Color(255, 0, 0));
-        errorContra.setForeground(new java.awt.Color(255, 0, 0));
-        add(errorContra);
-        errorContra.setBounds(1320, 610, 190, 60);
-        add(txtContra);
-        txtContra.setBounds(1240, 390, 200, 50);
-        add(txtConfirm);
-        txtConfirm.setBounds(1470, 530, 200, 50);
-        add(txtNewContra);
-        txtNewContra.setBounds(1240, 530, 200, 50);
+        btnModificarNombre.setText("Modificar Nombre");
+        btnModificarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarNombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificarNombre);
+        btnModificarNombre.setBounds(100, 250, 160, 70);
+
+        txtUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUser.setEnabled(false);
+        jPanel1.add(txtUser);
+        txtUser.setBounds(330, 130, 200, 50);
+
+        jLabel4.setText("Usuario:");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(400, 100, 70, 40);
+
+        txtApellido.setEnabled(false);
+        jPanel1.add(txtApellido);
+        txtApellido.setBounds(90, 550, 200, 50);
+
+        jLabel3.setText("Apellido:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(160, 510, 60, 40);
+
+        btnSave.setText("Guardar Cambios");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSave);
+        btnSave.setBounds(340, 730, 160, 70);
+
+        jLabel7.setText("Nombre:");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(160, 360, 50, 40);
+
+        add(jPanel1);
+        jPanel1.setBounds(770, 40, 870, 860);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyTyped
@@ -306,7 +320,7 @@ public class edituser extends javax.swing.JPanel {
         try {
             ManejoTabla.mostrarTablas(tablaUsuarios, TODOS_LOS_USUARIOS, null);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(edituser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditUser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -321,6 +335,8 @@ public class edituser extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblConfirContra;
     private javax.swing.JLabel lblContra;

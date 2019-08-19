@@ -5,6 +5,9 @@
  */
 package UiAdmin;
 
+import UI.Info;
+import UiAdmin.CrudRutas.*;
+import UiAdmin.CrudUsuarios.*;
 import SQL.Conexion;
 import UI.Login;
 import java.awt.BorderLayout;
@@ -24,7 +27,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
      * Creates new form FormAdministrador
      */
     ImageIcon icono = new ImageIcon("src/Imagenes/user.png");
-    info info = new info();
+    Info info = new Info();
     public static int PANTALLA_ACTIVAR = 1;
     public static int PANTALLA_DESACTIVAR = 2;
 
@@ -89,7 +92,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         iconActivateuser = new javax.swing.JLabel();
         btnActivateuser = new javax.swing.JLabel();
         iconDisabledRuta1 = new javax.swing.JLabel();
-        btnDesactivarRuta1 = new javax.swing.JLabel();
+        btnActivarRuta = new javax.swing.JLabel();
         JpContenedor = new javax.swing.JPanel();
         JpTitulo = new javax.swing.JPanel();
         tituloPrincipal = new javax.swing.JLabel();
@@ -217,6 +220,9 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         btnNuevaRuta.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevaRuta.setText("Nueva Ruta");
         btnNuevaRuta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNuevaRutaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnNuevaRutaMouseEntered(evt);
             }
@@ -227,9 +233,9 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         JpMenu.add(btnNuevaRuta);
         btnNuevaRuta.setBounds(50, 320, 140, 40);
 
-        iconDisabledRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/activaRuta.png"))); // NOI18N
+        iconDisabledRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/desRuta.png"))); // NOI18N
         JpMenu.add(iconDisabledRuta);
-        iconDisabledRuta.setBounds(10, 410, 40, 40);
+        iconDisabledRuta.setBounds(10, 360, 40, 40);
 
         btnDesactivarRuta.setForeground(new java.awt.Color(255, 255, 255));
         btnDesactivarRuta.setText("Desactivar Rutas");
@@ -242,7 +248,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnDesactivarRuta);
-        btnDesactivarRuta.setBounds(50, 410, 140, 40);
+        btnDesactivarRuta.setBounds(50, 360, 140, 40);
 
         separarRutas.setBackground(new java.awt.Color(0, 0, 0));
         JpMenu.add(separarRutas);
@@ -409,22 +415,22 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         JpMenu.add(btnActivateuser);
         btnActivateuser.setBounds(50, 220, 140, 40);
 
-        iconDisabledRuta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/desRuta.png"))); // NOI18N
+        iconDisabledRuta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/activaRuta.png"))); // NOI18N
         JpMenu.add(iconDisabledRuta1);
-        iconDisabledRuta1.setBounds(10, 360, 40, 40);
+        iconDisabledRuta1.setBounds(10, 400, 40, 40);
 
-        btnDesactivarRuta1.setForeground(new java.awt.Color(255, 255, 255));
-        btnDesactivarRuta1.setText("Desactivar Rutas");
-        btnDesactivarRuta1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnActivarRuta.setForeground(new java.awt.Color(255, 255, 255));
+        btnActivarRuta.setText("Activar Rutas");
+        btnActivarRuta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDesactivarRuta1MouseEntered(evt);
+                btnActivarRutaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDesactivarRuta1MouseExited(evt);
+                btnActivarRutaMouseExited(evt);
             }
         });
-        JpMenu.add(btnDesactivarRuta1);
-        btnDesactivarRuta1.setBounds(50, 360, 140, 40);
+        JpMenu.add(btnActivarRuta);
+        btnActivarRuta.setBounds(50, 400, 140, 40);
 
         ContenedorPrincipal.add(JpMenu, java.awt.BorderLayout.LINE_START);
 
@@ -507,7 +513,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDesactivarRutaMouseExited
 
     private void btnCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseClicked
-        crearUser crear = new crearUser();
+        CrearUsuario crear = new CrearUsuario();
         tituloPrincipal.setText("Creando Usuario...");
         JpInfo.removeAll();
         JpInfo.add(crear, BorderLayout.CENTER);
@@ -565,7 +571,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarPuntoControlMouseExited
 
     private void btnEditarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarUsuarioMouseClicked
-        edituser edit = new edituser();
+        EditUser edit = new EditUser();
         tituloPrincipal.setText("Editando Usuario...");
         JpInfo.removeAll();
         JpInfo.add(edit, BorderLayout.CENTER);
@@ -589,7 +595,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnDesUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesUsuarioMouseClicked
-        desacUser des = new desacUser(PANTALLA_DESACTIVAR);
+        DesactivarUsuario des = new DesactivarUsuario(PANTALLA_DESACTIVAR);
         tituloPrincipal.setText("Desactivando Usuario...");
         JpInfo.removeAll();
         JpInfo.add(des, BorderLayout.CENTER);
@@ -606,10 +612,10 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnActivateuserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivateuserMouseClicked
-        desacUser des = new desacUser(PANTALLA_ACTIVAR);
+        DesactivarUsuario desactivar = new DesactivarUsuario(PANTALLA_ACTIVAR);
         tituloPrincipal.setText("Activando Usuario...");
         JpInfo.removeAll();
-        JpInfo.add(des, BorderLayout.CENTER);
+        JpInfo.add(desactivar, BorderLayout.CENTER);
         JpInfo.revalidate();
         JpInfo.repaint();
     }//GEN-LAST:event_btnActivateuserMouseClicked
@@ -623,24 +629,40 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActivateuserMouseExited
 
     private void btnNuevoDestinoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoDestinoMouseClicked
-        
+        CrearDestino destino = new CrearDestino();
+        tituloPrincipal.setText("Creando Destino...");
+        JpInfo.removeAll();
+        JpInfo.add(destino, BorderLayout.CENTER);
+        JpInfo.revalidate();
+        JpInfo.repaint();
     }//GEN-LAST:event_btnNuevoDestinoMouseClicked
 
-    private void btnDesactivarRuta1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesactivarRuta1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDesactivarRuta1MouseEntered
+    private void btnActivarRutaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarRutaMouseEntered
+        btnActivarRuta.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnActivarRutaMouseEntered
 
-    private void btnDesactivarRuta1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesactivarRuta1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDesactivarRuta1MouseExited
+    private void btnActivarRutaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarRutaMouseExited
+        btnActivarRuta.setForeground(Color.white);
+
+    }//GEN-LAST:event_btnActivarRutaMouseExited
+
+    private void btnNuevaRutaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevaRutaMouseClicked
+        CrearRuta ruta = new CrearRuta();
+        tituloPrincipal.setText("Creando Ruta...");
+        JpInfo.removeAll();
+        JpInfo.add(ruta, BorderLayout.CENTER);
+        JpInfo.revalidate();
+        JpInfo.repaint();
+    }//GEN-LAST:event_btnNuevaRutaMouseClicked
 
     public void setText(String string) {
         UserInSesion.setText(string);
     }
 
-    public String getTitulo(){
+    public String getTitulo() {
         return this.tituloPrincipal.getText();
     }
+
     /**
      * @param args the command line arguments
      */
@@ -684,13 +706,13 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel JpMenu;
     private javax.swing.JPanel JpTitulo;
     private javax.swing.JLabel UserInSesion;
+    private javax.swing.JLabel btnActivarRuta;
     private javax.swing.JLabel btnActivateuser;
     private javax.swing.JLabel btnAddPuntoControl;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JLabel btnCrearUsuario;
     private javax.swing.JLabel btnDesUsuario;
     private javax.swing.JLabel btnDesactivarRuta;
-    private javax.swing.JLabel btnDesactivarRuta1;
     private javax.swing.JLabel btnEditarUsuario;
     private javax.swing.JLabel btnModificarPuntoControl;
     private javax.swing.JLabel btnNuevaRuta;

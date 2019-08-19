@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UiAdmin;
+package UiAdmin.CrudUsuarios;
 
 import Models.Usuario;
 import SQL.RegistrarUsuario;
@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Gamcas
  */
-public class crearUser extends javax.swing.JPanel {
+public class CrearUsuario extends javax.swing.JPanel {
 
     /**
      * Creates new form crearUser
@@ -21,7 +21,7 @@ public class crearUser extends javax.swing.JPanel {
     RegistrarUsuario registros = new RegistrarUsuario();
     Usuario usuario = new Usuario();
     
-    public crearUser() {
+    public CrearUsuario() {
         initComponents();
     }
 
