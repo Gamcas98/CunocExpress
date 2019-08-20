@@ -8,8 +8,8 @@ package UI;
 import Models.Usuario;
 import SQL.Conexion;
 import SQL.RegistrarUsuario;
-import UIOperador.PrincipalOperador;
-import UiAdmin.PrincipalAdmin;
+import UI.Operador.PrincipalOperador;
+import UI.Admin.PrincipalAdmin;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 

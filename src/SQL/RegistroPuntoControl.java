@@ -26,7 +26,7 @@ public class RegistroPuntoControl {
             ps.setDouble(1, punto.getTarifaOperacion());
             ps.setDouble(2, punto.getCantidadPaquetes());
             ps.setString(3, punto.getUsuario());
-            ps.setInt(4, punto.getRuta());
+            ps.setString(4, punto.getRuta());
             ps.setString(5, punto.getEstado());
 
             ps.execute();

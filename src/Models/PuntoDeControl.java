@@ -14,7 +14,7 @@ public class PuntoDeControl {
     private double tarifaOperacion;
     private int cantidadPaquetes;
     private String usuario;
-    private int ruta;
+    private String ruta;
     private String estado;
 
     public void setTarifaOperacion(double tarifaOperacion) {
@@ -29,7 +29,7 @@ public class PuntoDeControl {
         this.usuario = usuario;
     }
 
-    public void setRuta(int ruta) {
+    public void setRuta(String ruta) {
         this.ruta = ruta;
     }
 
@@ -49,7 +49,7 @@ public class PuntoDeControl {
         return usuario;
     }
 
-    public int getRuta() {
+    public String getRuta() {
         return ruta;
     }
 

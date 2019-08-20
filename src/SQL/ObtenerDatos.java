@@ -69,7 +69,7 @@ public class ObtenerDatos {
             PreparedStatement ps = null;
             ResultSet rs = null;
 //consulta para ver el ultimo caso que se ingreso
-            String query = "SELECT precio_libra FROM cuotas_punto_control ORDER BY id_cuota DESC LIMIT 1";
+            String query = "SELECT precio_libra FROM cuotas_paquetes ORDER BY id_cuota DESC LIMIT 1";
 
             ps = Conexion.getConection().prepareStatement(query);
             rs = ps.executeQuery();
@@ -85,23 +85,22 @@ public class ObtenerDatos {
         }
 
     }
-
-    public static String obtenerIdRuta(String nombre,String destino) {
+    
+        
+    public static String obtenerTarifaPrioridad() {
 
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
 //consulta para ver el ultimo caso que se ingreso
-            String query = "SELECT id_ruta FROM RUTA WHERE Nombre =? AND Destino=?";
+            String query = "SELECT tarifa_prioridad FROM cuotas_paquetes ORDER BY id_cuota DESC LIMIT 1";
 
             ps = Conexion.getConection().prepareStatement(query);
-            ps.setString(1, nombre);
-            ps.setString(2, destino);
             rs = ps.executeQuery();
 //si rs nos trae datos
             if (rs.next()) {
-                String ID = rs.getString(1);//varibale para almacenar el dato que nos trae rs
-                return ID;//y retornamos el valor para manejarlo afuera
+                String tarifa = rs.getString(1);//varibale para almacenar el dato que nos trae rs
+                return tarifa;//y retornamos el valor para manejarlo afuera
             }
 
             return null;
