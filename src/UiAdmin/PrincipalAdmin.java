@@ -10,6 +10,8 @@ import UiAdmin.CrudRutas.*;
 import UiAdmin.CrudUsuarios.*;
 import SQL.Conexion;
 import UI.Login;
+import UiAdmin.Tarifas.TarifaOperacion;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -319,6 +321,9 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         btnTarifaOperacion.setForeground(new java.awt.Color(255, 255, 255));
         btnTarifaOperacion.setText("Tarifa de Operacion");
         btnTarifaOperacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTarifaOperacionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnTarifaOperacionMouseEntered(evt);
             }
@@ -654,6 +659,15 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         JpInfo.revalidate();
         JpInfo.repaint();
     }//GEN-LAST:event_btnNuevaRutaMouseClicked
+
+    private void btnTarifaOperacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTarifaOperacionMouseClicked
+        JpInfo.removeAll();
+        JpInfo.add(info, BorderLayout.CENTER);
+        JpInfo.revalidate();
+        JpInfo.repaint();
+        TarifaOperacion tarifa = new TarifaOperacion(this, true);
+        tarifa.setVisible(true);
+    }//GEN-LAST:event_btnTarifaOperacionMouseClicked
 
     public void setText(String string) {
         UserInSesion.setText(string);

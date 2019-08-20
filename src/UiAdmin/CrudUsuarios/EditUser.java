@@ -7,7 +7,7 @@ package UiAdmin.CrudUsuarios;
 
 import Models.Usuario;
 import SQL.ManejoTabla;
-import SQL.MetodosApoyo;
+import SQL.ObtenerDatos;
 import SQL.RegistrarUsuario;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -241,7 +241,7 @@ public class EditUser extends javax.swing.JPanel {
         String newContra = new String(txtNewContra.getPassword());
         String comfirm = new String(txtConfirm.getPassword());
         String usuario = txtUser.getText();
-        String contraRecuperada = MetodosApoyo.obtenerContra(usuario);
+        String contraRecuperada = ObtenerDatos.obtenerContra(usuario);
 
         if (!txtNewContra.isEnabled()) {
 

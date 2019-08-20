@@ -41,7 +41,12 @@ public class ManejoTabla {
                 + "ORDER BY Usuario ASC";
 
         String queryDestinos = "SELECT * FROM DESTINO";
+
         String queryBuscarDestinos = "SELECT * FROM DESTINO WHERE nombre_destino LIKE ?";
+
+        String queryUsuariosOperadores = "SELECT Usuario FROM USUARIO WHERE Tipo=2 AND Estado='ACTIVO'";
+
+        String queryBuscarOperadores = "SELECT Usuario FROM USUARIO WHERE Usuario like?";
 
         try {
 
@@ -115,7 +120,24 @@ public class ManejoTabla {
                     modelo.addColumn("Cuota");
                     break;
                 case 9:
+                    ps = Conexion.getConection().prepareStatement(queryUsuariosOperadores);
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Usuario");
+                    break;
+                case 10:
+                    ps = Conexion.getConection().prepareStatement(queryBuscarOperadores);
+                    ps.setString(1, "%" + nombre + "%");
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Usuario");
+                    break;
+                case 11:
                     ps = Conexion.getConection().prepareStatement(queryDestinos);
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Destino");
+                    break;
+                case 12:
+                    ps = Conexion.getConection().prepareStatement(queryBuscarDestinos);
+                    ps.setString(1, "%" + nombre + "%");
                     rs = ps.executeQuery();
                     modelo.addColumn("Destino");
                     break;
