@@ -17,16 +17,8 @@ public class Usuario {
     private String contrasena;
     private String usuario;
     private String apellido;
-    private String estadoOperacion;
+ 
 
-    public void setEstadoOperacion(String estadoOperacion) {
-        this.estadoOperacion = estadoOperacion;
-    }
-
-    public String getEstadoOperacion() {
-        return estadoOperacion;
-    }
-    
 
     public String getApellido() {
         return apellido;

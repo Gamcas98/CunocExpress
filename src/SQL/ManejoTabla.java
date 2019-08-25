@@ -5,6 +5,7 @@
  */
 package SQL;
 
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -21,6 +22,7 @@ public class ManejoTabla {
 
         DefaultTaBleModel modelo = new DefaultTaBleModel();
         tabla.setModel(modelo);
+        tabla.setSelectionBackground(Color.GRAY);
         tabla.setRowHeight(40);
         tabla.getTableHeader().setReorderingAllowed(false);
         PreparedStatement ps = null;
@@ -33,11 +35,11 @@ public class ManejoTabla {
         String queryBusquedaUsuarios = "SELECT  Usuario, Nombre, Apellido FROM USUARIO WHERE Usuario LIKE ? ORDER BY Usuario ASC";
 
         String queryActivarDesactivar = "SELECT  Usuario, Nombre, Apellido FROM USUARIO"
-                + " WHERE estado_operacion='INACTIVO' AND Estado=?"
+                + " WHERE Estado=?"
                 + "ORDER BY Usuario ASC";
 
         String queryBusquedaActivosInactivos = "SELECT  Usuario, Nombre, Apellido FROM USUARIO"
-                + " WHERE estado_operacion='INACTIVO' AND Estado=? AND Usuario LIKE ?"
+                + " WHERE  Estado=? AND Usuario LIKE ?"
                 + "ORDER BY Usuario ASC";
 
         String queryDestinos = "SELECT * FROM DESTINO";
@@ -47,6 +49,10 @@ public class ManejoTabla {
         String queryUsuariosOperadores = "SELECT Usuario FROM USUARIO WHERE Tipo=2 AND Estado='ACTIVO'";
 
         String queryBuscarOperadores = "SELECT Usuario FROM USUARIO WHERE Usuario like?";
+
+        String queryClientes = "SELECT * FROM CLIENTE";
+
+        String queryBuscarCliente = "SELECT * FROM CLIENTE WHERE Nit LIKE ?";
 
         try {
 
@@ -140,6 +146,25 @@ public class ManejoTabla {
                     ps.setString(1, "%" + nombre + "%");
                     rs = ps.executeQuery();
                     modelo.addColumn("Destino");
+                    break;
+                case 13:
+                    ps = Conexion.getConection().prepareStatement(queryClientes);
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Nombre");
+                    modelo.addColumn("Nit");
+                    modelo.addColumn("Telefono");
+                    modelo.addColumn("Direccion");
+
+                    break;
+                case 14:
+                    ps = Conexion.getConection().prepareStatement(queryBuscarCliente);
+                    ps.setString(1, "%" + nombre + "%");
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Nombre");
+                    modelo.addColumn("Nit");
+                    modelo.addColumn("Telefono");
+                    modelo.addColumn("Direccion");
+
                     break;
 
             }

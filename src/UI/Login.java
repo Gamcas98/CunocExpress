@@ -8,8 +8,10 @@ package UI;
 import Models.Usuario;
 import SQL.Conexion;
 import SQL.RegistrarUsuario;
-import UI.Operador.PrincipalOperador;
 import UI.Admin.PrincipalAdmin;
+import UI.Operador.PrincipalOperado;
+import UI.Operador.PrincipalOperado1;
+import UI.Recepcionista.PrincipalRecepcionista;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 
@@ -235,12 +237,14 @@ public class Login extends javax.swing.JFrame {
 
                         break;
                     case OPERARIO:
-                        PrincipalOperador operador = new PrincipalOperador();
+                        PrincipalOperado1 operador = new PrincipalOperado1();
                         operador.setText(user);
                         operador.setVisible(true);
                         break;
                     case RECEPCIONISTA:
-
+                        PrincipalRecepcionista recepcionista = new PrincipalRecepcionista();
+                        recepcionista.setText(user);
+                        recepcionista.setVisible(true);
                         break;
                     default:
                         break;

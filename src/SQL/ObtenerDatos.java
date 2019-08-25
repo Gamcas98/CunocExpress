@@ -61,8 +61,7 @@ public class ObtenerDatos {
         }
 
     }
-    
-    
+
     public static String obtenerTarifaLibra() {
 
         try {
@@ -85,8 +84,7 @@ public class ObtenerDatos {
         }
 
     }
-    
-        
+
     public static String obtenerTarifaPrioridad() {
 
         try {
@@ -120,6 +118,55 @@ public class ObtenerDatos {
 
             ps = Conexion.getConection().prepareStatement(query);
             ps.setString(1, nombre);
+            rs = ps.executeQuery();
+//si rs nos trae datos
+            if (rs.next()) {
+                int numero = rs.getInt(1);//varibale para almacenar el dato que nos trae rs
+                return numero;//y retornamos el valor para manejarlo afuera
+            }
+
+            return 0;
+        } catch (SQLException | ClassNotFoundException ex) {
+            return 0;
+        }
+
+    }
+
+    public static int obtenerPuntosrRuta(String nombre) {
+
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+//consulta para ver el ultimo caso que se ingreso
+            String query = "SELECT COUNT(id_punto_control) FROM punto_de_control WHERE Ruta=?";
+
+            ps = Conexion.getConection().prepareStatement(query);
+            ps.setString(1, nombre);
+            rs = ps.executeQuery();
+//si rs nos trae datos
+            if (rs.next()) {
+                int numero = rs.getInt(1);//varibale para almacenar el dato que nos trae rs
+                return numero;//y retornamos el valor para manejarlo afuera
+            }
+
+            return 0;
+        } catch (SQLException | ClassNotFoundException ex) {
+            return 0;
+        }
+
+    }
+
+    public static int obtenerTarifaPunto(String nombre, int id) {
+
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+//consulta para ver el ultimo caso que se ingreso
+            String query = "SELECT tarifa_operacion FROM punto_de_control WHERE Ruta=? AND id_punto_control=?";
+
+            ps = Conexion.getConection().prepareStatement(query);
+            ps.setString(1, nombre);
+            ps.setInt(2, id);
             rs = ps.executeQuery();
 //si rs nos trae datos
             if (rs.next()) {

@@ -67,6 +67,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         iconUserInSesion = new javax.swing.JLabel();
         UserInSesion = new javax.swing.JLabel();
         separarUserInSesion = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
         iconCreateUser = new javax.swing.JLabel();
         iconEditUser = new javax.swing.JLabel();
         iconDIsabledUser = new javax.swing.JLabel();
@@ -137,6 +138,8 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         separarUserInSesion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JpMenu.add(separarUserInSesion);
         separarUserInSesion.setBounds(0, 0, 200, 80);
+        JpMenu.add(jLabel1);
+        jLabel1.setBounds(150, 100, 40, 30);
 
         iconCreateUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crearUser.png"))); // NOI18N
         JpMenu.add(iconCreateUser);
@@ -283,7 +286,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         iconModiPuntoControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/modiPuntoControl.png"))); // NOI18N
         JpMenu.add(iconModiPuntoControl);
-        iconModiPuntoControl.setBounds(10, 520, 40, 40);
+        iconModiPuntoControl.setBounds(10, 560, 40, 40);
 
         btnModificarPuntoControl.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         btnModificarPuntoControl.setForeground(new java.awt.Color(255, 255, 255));
@@ -297,11 +300,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnModificarPuntoControl);
-        btnModificarPuntoControl.setBounds(50, 520, 140, 40);
+        btnModificarPuntoControl.setBounds(50, 560, 140, 40);
 
         iconQuitPuntoControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/quitPuntoControl.png"))); // NOI18N
         JpMenu.add(iconQuitPuntoControl);
-        iconQuitPuntoControl.setBounds(10, 570, 40, 40);
+        iconQuitPuntoControl.setBounds(10, 520, 40, 40);
 
         btnQuitPuntoControl.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         btnQuitPuntoControl.setForeground(new java.awt.Color(255, 255, 255));
@@ -315,7 +318,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnQuitPuntoControl);
-        btnQuitPuntoControl.setBounds(50, 570, 140, 40);
+        btnQuitPuntoControl.setBounds(50, 520, 140, 40);
 
         separarPuntosControl.setBackground(new java.awt.Color(0, 0, 0));
         JpMenu.add(separarPuntosControl);
@@ -795,6 +798,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel iconTarifaOperacion;
     private javax.swing.JLabel iconTarifaPrioridad;
     private javax.swing.JLabel iconUserInSesion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator7;

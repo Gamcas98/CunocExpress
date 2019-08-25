@@ -15,23 +15,6 @@ import java.sql.SQLException;
  */
 public class ActualizarDatos {
 
-    public static void setEstadoOperacion(String nombre) {
-
-        PreparedStatement ps = null;
-        //actualizar tablar etapa donde el desarrollador lo seleccionamos y la etapa la recibe como parametro
-        String query = "UPDATE Usuario SET estado_operacion='ACTIVO' WHERE Usuario=?";
-        try {
-
-            ps = Conexion.getConection().prepareStatement(query);
-            ps.setString(1, nombre);
-
-            ps.execute();
-
-        } catch (SQLException | ClassNotFoundException ex) {
-
-        }
-
-    }
 
     public static boolean setTarifasPaquetes(Object tarifa, Object precio, Date fecha) {
 

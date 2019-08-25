@@ -7,6 +7,7 @@ package Ui.Admin.CrudUsuarios;
 
 import Models.Usuario;
 import SQL.ManejoTabla;
+import SQL.ObtenerDatos;
 import SQL.RegistrarUsuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class DesactivarUsuario extends javax.swing.JPanel {
 
-   
     public static int TODOS_LOS_USUARIOS_ACTIVOS = 3;
     public static int TODOS_LOS_USUARIOS_INACTIVOS = 4;
     public static int BUSCAR_USUARIO_ACTIVO = 5;
@@ -149,12 +149,19 @@ public class DesactivarUsuario extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un usuario");
         } else {
             if (btnSave.getText().equals("Desactivar Usuario")) {
-                user.setEstado("INACTIVO");
-                user.setUsuario(usuario);
-                registro.desactivarUsuario(user);
-                mostrarUsuarios(TODOS_LOS_USUARIOS_ACTIVOS);
-                limpiar();
-                JOptionPane.showMessageDialog(null, "Se ha desactivado el usuario");
+
+                if (ObtenerDatos.obtenerPuntosUsuario(usuario) == 0) {
+                    user.setEstado("INACTIVO");
+                    user.setUsuario(usuario);
+                    registro.desactivarUsuario(user);
+                    mostrarUsuarios(TODOS_LOS_USUARIOS_ACTIVOS);
+                    limpiar();
+                    JOptionPane.showMessageDialog(null, "Se ha desactivado el usuario");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuarios en puntos de control"
+                            + "\nno pueden ser desactivados");
+                }
+
             } else {
                 user.setEstado("ACTIVO");
                 user.setUsuario(usuario);

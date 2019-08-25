@@ -321,6 +321,7 @@
                     <Column editable="false" title="Paquetes Permitidos" type="java.lang.Object"/>
                   </Table>
                 </Property>
+                <Property name="dragEnabled" type="boolean" value="true"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -347,7 +348,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="250" y="450" width="170" height="70"/>
+              <AbsoluteConstraints x="-20" y="450" width="170" height="70"/>
             </Constraint>
           </Constraints>
         </Component>

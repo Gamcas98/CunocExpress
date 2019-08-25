@@ -10,12 +10,30 @@ package Models;
  * @author Gamcas
  */
 public class PuntoDeControl {
-    
+
     private double tarifaOperacion;
     private int cantidadPaquetes;
     private String usuario;
     private String ruta;
     private String estado;
+    private int id;
+    private int cola;
+
+    public int getCola() {
+        return cola;
+    }
+
+    public void setCola(int cola) {
+        this.cola = cola;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public void setTarifaOperacion(double tarifaOperacion) {
         this.tarifaOperacion = tarifaOperacion;
@@ -56,9 +74,5 @@ public class PuntoDeControl {
     public String getEstado() {
         return estado;
     }
-    
-    
-    
-    
-    
+
 }

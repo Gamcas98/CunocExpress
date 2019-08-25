@@ -20,7 +20,7 @@ public class CrearUsuario extends javax.swing.JPanel {
      */
     RegistrarUsuario registros = new RegistrarUsuario();
     Usuario usuario = new Usuario();
-    
+
     public CrearUsuario() {
         initComponents();
     }
@@ -111,6 +111,12 @@ public class CrearUsuario extends javax.swing.JPanel {
         error.setForeground(new java.awt.Color(255, 51, 51));
         jPanel1.add(error);
         error.setBounds(320, 560, 230, 60);
+
+        txtContra2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContra2KeyPressed(evt);
+            }
+        });
         jPanel1.add(txtContra2);
         txtContra2.setBounds(450, 470, 320, 50);
         jPanel1.add(txtContra);
@@ -121,27 +127,36 @@ public class CrearUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        
+        crear();
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void txtContra2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContra2KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            crear();
+        }
+    }//GEN-LAST:event_txtContra2KeyPressed
+
+    private void crear() {
+
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String user = txtUsuario.getText();
         String contra = new String(txtContra.getPassword());
         String contra2 = new String(txtContra2.getPassword());
-        
+
         if (nombre.isEmpty() || apellido.isEmpty() || user.isEmpty() || contra.isEmpty() || contra2.isEmpty()) {
             error.setText("Todos los campos son obligatorios");
         } else {
             if (contra.equals(contra2)) {
                 if (registros.existeUsuario(user) == 0) {
-                    
+
                     usuario.setUsuario(user);
                     usuario.setApellido(apellido);
                     usuario.setContrasena(contra);
                     usuario.setNombre(nombre);
                     usuario.setTipo(cmbTipo.getSelectedIndex());
                     usuario.setEstado("ACTIVO");
-                    usuario.setEstadoOperacion("INACTIVO");
-                    
+
                     validar();
                 } else {
                     error.setText("El Usuario ya existe");
@@ -150,8 +165,8 @@ public class CrearUsuario extends javax.swing.JPanel {
                 error.setText("Verifique las contasenas");
             }
         }
-    }//GEN-LAST:event_btnConfirmarActionPerformed
-    
+    }
+
     private void limpiar() {
         txtNombre.setText("");
         cmbTipo.setSelectedIndex(0);
@@ -162,7 +177,7 @@ public class CrearUsuario extends javax.swing.JPanel {
         error.setText("");
         txtNombre.requestFocusInWindow();
     }
-    
+
     private void validar() {
         switch (cmbTipo.getSelectedIndex()) {
             case 0:

@@ -22,7 +22,7 @@ public class RegistrarUsuario {
 
         PreparedStatement ps = null;
 
-        String query = "INSERT INTO USUARIO (Usuario,Contrasena,Tipo,Nombre,Apellido,Estado,estado_operacion) VALUES(?,?,?,?,?,?,?)";
+        String query = "INSERT INTO USUARIO (Usuario,Contrasena,Tipo,Nombre,Apellido,Estado) VALUES(?,?,?,?,?,?)";
 
         try {
             ps = Conexion.getConection().prepareStatement(query);
@@ -32,7 +32,6 @@ public class RegistrarUsuario {
             ps.setString(4, usuario.getNombre());
             ps.setString(5, usuario.getApellido());
             ps.setString(6, usuario.getEstado());
-            ps.setString(7, usuario.getEstadoOperacion());
             ps.execute();
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -102,14 +101,14 @@ public class RegistrarUsuario {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT Usuario, Contrasena,Estado, Tipo FROM USUARIO WHERE Usuario= ?";
+        String query = "SELECT Usuario, Contrasena,Estado, Tipo FROM USUARIO WHERE Usuario= ? AND Estado='ACTIVO'";
         try {
             ps = Conexion.getConection().prepareStatement(query);
             ps.setString(1, usuario.getUsuario());
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                if (usuario.getContrasena().equals(rs.getString(2))&& rs.getString(3).equals("ACTIVO")){
+                if (usuario.getContrasena().equals(rs.getString(2))){
                     usuario.setUsuario(rs.getString(1));
                     usuario.setContrasena(rs.getString(2));
                     usuario.setTipo(rs.getInt(4));

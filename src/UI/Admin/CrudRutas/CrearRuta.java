@@ -9,10 +9,12 @@ import Models.PuntoDeControl;
 import Models.Ruta;
 import SQL.ManejoTabla;
 import SQL.ActualizarDatos;
+import SQL.Conexion;
 import SQL.ObtenerDatos;
 import SQL.RegistroPuntoControl;
 import SQL.RegistroRuta;
 import SQL.VerificarExistencias;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,6 +33,7 @@ public class CrearRuta extends javax.swing.JPanel {
 
     public CrearRuta() {
         initComponents();
+        btnQuitar.setVisible(false);
         mostrarTablas();
     }
 
@@ -215,6 +218,7 @@ public class CrearRuta extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tablaPuntosControl.setDragEnabled(true);
         jScrollPane1.setViewportView(tablaPuntosControl);
 
         contenedorTabla.add(jScrollPane1);
@@ -232,7 +236,7 @@ public class CrearRuta extends javax.swing.JPanel {
             }
         });
         contenedorTabla.add(btnQuitar);
-        btnQuitar.setBounds(250, 450, 170, 70);
+        btnQuitar.setBounds(-20, 450, 170, 70);
 
         add(contenedorTabla);
         contenedorTabla.setBounds(1080, 30, 610, 550);
@@ -379,6 +383,7 @@ public class CrearRuta extends javax.swing.JPanel {
                         DefaultTableModel modelo = (DefaultTableModel) tablaPuntosControl.getModel();
                         tablaPuntosControl.setRowHeight(40);
                         tablaPuntosControl.getTableHeader().setReorderingAllowed(false);
+                        modelo.fireTableDataChanged();
 
                         Object[] fila = new Object[4];
                         fila[0] = tablaPuntosControl.getRowCount() + 1;
@@ -456,14 +461,16 @@ public class CrearRuta extends javax.swing.JPanel {
                     ruta.setDestino(destino);
                     ruta.setEstado("ACTIVO");
                     ruta.setNombre(nombre);
+
                     if (registroRuta.crearRuta(ruta)) {
 
                         for (int i = 0; i < tablaPuntosControl.getRowCount(); i++) {
                             RegistroPuntoControl registroPunto = new RegistroPuntoControl();
                             PuntoDeControl punto = new PuntoDeControl();
-                            ActualizarDatos.setEstadoOperacion((String) tablaPuntosControl.getValueAt(i, 1));
                             punto.setEstado("ACTIVO");
+                            punto.setId(Integer.parseInt(tablaPuntosControl.getValueAt(i, 0).toString()));
                             punto.setRuta(nombre);
+                            punto.setCola(0);
                             punto.setUsuario((String) tablaPuntosControl.getValueAt(i, 1));
                             punto.setTarifaOperacion(Double.parseDouble(tablaPuntosControl.getValueAt(i, 2).toString()));
                             punto.setCantidadPaquetes(Integer.parseInt(tablaPuntosControl.getValueAt(i, 3).toString()));
@@ -475,9 +482,12 @@ public class CrearRuta extends javax.swing.JPanel {
                             }
 
                         }
+
                         JOptionPane.showMessageDialog(null, "Se ha creado la ruta con exito");
                         eliminar();
                         limpiarInfo();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "algo ha salido mal");
                     }
 
                 } else {
