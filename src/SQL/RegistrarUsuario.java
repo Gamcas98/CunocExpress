@@ -9,6 +9,8 @@ import Models.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,18 +22,52 @@ public class RegistrarUsuario {
 
         PreparedStatement ps = null;
 
-        String query = "INSERT INTO USUARIO (Usuario,Contrasena,Tipo) VALUES(?,?,?)";
+        String query = "INSERT INTO USUARIO (Usuario,Contrasena,Tipo,Nombre,Apellido,Estado) VALUES(?,?,?,?,?,?)";
 
         try {
             ps = Conexion.getConection().prepareStatement(query);
             ps.setString(1, usuario.getUsuario());
             ps.setString(2, usuario.getContrasena());
             ps.setInt(3, usuario.getTipo());
+            ps.setString(4, usuario.getNombre());
+            ps.setString(5, usuario.getApellido());
+            ps.setString(6, usuario.getEstado());
             ps.execute();
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("error");
             return false;
+        }
+    }
+
+    public void editarUsuario(Usuario usuario) {
+
+        PreparedStatement ps = null;
+        String query = "UPDATE USUARIO SET Nombre=?, Apellido=?,Contrasena=? WHERE Usuario=?";
+
+        try {
+            ps = Conexion.getConection().prepareStatement(query);
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getApellido());
+            ps.setString(3, usuario.getContrasena());
+            ps.setString(4, usuario.getUsuario());
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+        }
+    }
+
+    public void desactivarUsuario(Usuario usuario) {
+
+        PreparedStatement ps = null;
+        String query = "UPDATE USUARIO SET Estado=? WHERE Usuario=?";
+
+        try {
+            ps = Conexion.getConection().prepareStatement(query);
+            ps.setString(1, usuario.getEstado());
+            ps.setString(2, usuario.getUsuario());
+
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
         }
     }
 
@@ -65,17 +101,17 @@ public class RegistrarUsuario {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT Usuario, Contrasena, Tipo FROM USUARIO WHERE Usuario= ?";
+        String query = "SELECT Usuario, Contrasena,Estado, Tipo FROM USUARIO WHERE Usuario= ? AND Estado='ACTIVO'";
         try {
             ps = Conexion.getConection().prepareStatement(query);
             ps.setString(1, usuario.getUsuario());
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                if (usuario.getContrasena().equals(rs.getString(2))) {
+                if (usuario.getContrasena().equals(rs.getString(2))){
                     usuario.setUsuario(rs.getString(1));
                     usuario.setContrasena(rs.getString(2));
-                    usuario.setTipo(rs.getInt(3));
+                    usuario.setTipo(rs.getInt(4));
                     return true;
                 } else {
                     return false;

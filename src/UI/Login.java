@@ -8,7 +8,9 @@ package UI;
 import Models.Usuario;
 import SQL.Conexion;
 import SQL.RegistrarUsuario;
-import UiAdmin.FormAdministrador;
+import UI.Admin.PrincipalAdmin;
+import UI.Operador.PrincipalOperado1;
+import UI.Recepcionista.PrincipalRecepcionista;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 
@@ -40,7 +42,7 @@ public class Login extends javax.swing.JFrame {
             Conexion.getConection();
         } catch (SQLException | ClassNotFoundException ex) {
         }
-        
+
     }
 
     /**
@@ -63,8 +65,8 @@ public class Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblContra = new javax.swing.JLabel();
+        lblContraNombre = new javax.swing.JLabel();
         btnIngreso = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -112,7 +114,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Vivaldi", 2, 36)); // NOI18N
         jLabel1.setText("Sign In");
         JpLogin.add(jLabel1);
-        jLabel1.setBounds(220, 60, 140, 50);
+        jLabel1.setBounds(240, 60, 140, 50);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuario.png"))); // NOI18N
         JpLogin.add(jLabel5);
@@ -124,13 +126,13 @@ public class Login extends javax.swing.JFrame {
         JpLogin.add(jLabel6);
         jLabel6.setBounds(260, 150, 90, 20);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/contra.png"))); // NOI18N
-        JpLogin.add(jLabel7);
-        jLabel7.setBounds(140, 310, 40, 50);
+        lblContra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/contra.png"))); // NOI18N
+        JpLogin.add(lblContra);
+        lblContra.setBounds(140, 310, 40, 50);
 
-        jLabel8.setText("Password:");
-        JpLogin.add(jLabel8);
-        jLabel8.setBounds(260, 280, 90, 20);
+        lblContraNombre.setText("Password:");
+        JpLogin.add(lblContraNombre);
+        lblContraNombre.setBounds(260, 280, 90, 20);
 
         btnIngreso.setBackground(new java.awt.Color(255, 255, 255));
         btnIngreso.setFont(new java.awt.Font("Lucida Handwriting", 2, 18)); // NOI18N
@@ -155,6 +157,12 @@ public class Login extends javax.swing.JFrame {
         jLabel11.setText("Diseno y Desarrollo por: Gamcas");
         JpLogin.add(jLabel11);
         jLabel11.setBounds(210, 560, 200, 20);
+
+        txtContra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraKeyPressed(evt);
+            }
+        });
         JpLogin.add(txtContra);
         txtContra.setBounds(180, 310, 230, 50);
 
@@ -181,6 +189,30 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoActionPerformed
+        iniciarSesion();
+    }//GEN-LAST:event_btnIngresoActionPerformed
+
+    private void mostrarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContraActionPerformed
+        if (mostrarContra.isSelected()) {
+            txtContra.setEchoChar((char) 0);
+        } else {
+            txtContra.setEchoChar('•');
+        }
+    }//GEN-LAST:event_mostrarContraActionPerformed
+
+    private void txtContraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            iniciarSesion();
+        }
+    }//GEN-LAST:event_txtContraKeyPressed
+
+    private void limpiar() {
+        txtContra.setText("");
+        txtUser.setText("");
+        txtUser.requestFocus();
+    }
+
+    private void iniciarSesion() {
 
         usuario = new Usuario();
         registro = new RegistrarUsuario();
@@ -198,16 +230,20 @@ public class Login extends javax.swing.JFrame {
 
                 switch (usuario.getTipo()) {
                     case ADMIN:
-                        FormAdministrador frAdmin = new FormAdministrador();
+                        PrincipalAdmin frAdmin = new PrincipalAdmin();
                         frAdmin.setText(user);
                         frAdmin.setVisible(true);
 
                         break;
                     case OPERARIO:
-                        alert.setText("yei2");
+                        PrincipalOperado1 operador = new PrincipalOperado1();
+                        operador.setText(user);
+                        operador.setVisible(true);
                         break;
                     case RECEPCIONISTA:
-
+                        PrincipalRecepcionista recepcionista = new PrincipalRecepcionista();
+                        recepcionista.setText(user);
+                        recepcionista.setVisible(true);
                         break;
                     default:
                         break;
@@ -221,25 +257,6 @@ public class Login extends javax.swing.JFrame {
         }
 
         limpiar();
-
-    }//GEN-LAST:event_btnIngresoActionPerformed
-
-    private void mostrarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContraActionPerformed
-        if (mostrarContra.isSelected()) {
-            txtContra.setEchoChar((char) 0);
-        } else {
-            txtContra.setEchoChar('•');
-        }
-    }//GEN-LAST:event_mostrarContraActionPerformed
-
-    private void limpiar() {
-        txtContra.setText("");
-        txtUser.setText("");
-        txtUser.requestFocus();
-    }
-    
-    private void esconder(){
-        txtContra.setVisible(false);
     }
 
 
@@ -258,9 +275,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblContra;
+    private javax.swing.JLabel lblContraNombre;
     private javax.swing.JCheckBox mostrarContra;
     private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtUser;

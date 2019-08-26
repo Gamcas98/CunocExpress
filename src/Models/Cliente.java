@@ -16,4 +16,36 @@ public class Cliente {
     private String direccion;
     private int telefono;
 
+    public void setNit(int nit) {
+        this.nit = nit;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getNit() {
+        return nit;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
 }

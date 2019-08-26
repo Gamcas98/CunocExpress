@@ -13,10 +13,20 @@ public class Usuario {
 
     private int tipo;
     private String nombre;
-    private String apelleido;
     private String estado;
     private String contrasena;
     private String usuario;
+    private String apellido;
+ 
+
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
     public int getTipo() {
         return tipo;
@@ -24,10 +34,6 @@ public class Usuario {
 
     public String getNombre() {
         return nombre;
-    }
-
-    public String getApelleido() {
-        return apelleido;
     }
 
     public String getEstado() {
@@ -48,10 +54,6 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public void setApelleido(String apelleido) {
-        this.apelleido = apelleido;
     }
 
     public void setEstado(String estado) {

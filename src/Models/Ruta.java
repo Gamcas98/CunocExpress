@@ -15,4 +15,30 @@ public class Ruta {
     private String nombre;
     private String destino;
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    
+    
 }
