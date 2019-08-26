@@ -16,7 +16,9 @@ import SQL.Conexion;
 import UI.Admin.Tarifas.EditTarifaDestino;
 import UI.Login;
 import UI.Recepcionista.Paquetes.EditarCliente;
+import UI.Recepcionista.Paquetes.EntregarPaquetes;
 import UI.Recepcionista.Paquetes.EnviarPaquetes;
+import UI.Recepcionista.Paquetes.LocalizarPaquete;
 import Ui.Admin.Tarifas.Tarifas;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,12 +37,7 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
      * Creates new form FormAdministrador
      */
     ImageIcon icono = new ImageIcon("src/Imagenes/user.png");
-    Info info = new Info();
-    public static int PANTALLA_ACTIVAR = 1;
-    public static int PANTALLA_DESACTIVAR = 2;
-    public static int PANTALLA_TARIFA_OPERACION = 1;
-    public static int PANTALLA_TARIFA_LIBRA = 2;
-    public static int PANTALLA_TARIFA_PRIORIDAD = 3;
+    Inicio inicio = new Inicio();
 
     public PrincipalRecepcionista() {
         initComponents();
@@ -48,7 +45,7 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
         this.setTitle("Recepcionista");
         this.setExtendedState(MAXIMIZED_BOTH);
         JpInfo.removeAll();
-        JpInfo.add(info, BorderLayout.CENTER);
+        JpInfo.add(inicio, BorderLayout.CENTER);
         JpInfo.revalidate();
         JpInfo.repaint();
 
@@ -124,11 +121,11 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
 
         iconCreateUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/recepcionPaquete.png"))); // NOI18N
         JpMenu.add(iconCreateUser);
-        iconCreateUser.setBounds(10, 240, 40, 40);
+        iconCreateUser.setBounds(10, 320, 40, 40);
 
         iconEditUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/entregaPaquete.png"))); // NOI18N
         JpMenu.add(iconEditUser);
-        iconEditUser.setBounds(10, 320, 40, 40);
+        iconEditUser.setBounds(10, 400, 40, 40);
 
         btnRecepcion.setForeground(new java.awt.Color(255, 255, 255));
         btnRecepcion.setText("Recepcion de Paquetes");
@@ -144,7 +141,7 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnRecepcion);
-        btnRecepcion.setBounds(50, 240, 140, 40);
+        btnRecepcion.setBounds(50, 320, 140, 40);
 
         btnEntrega.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrega.setText("Entrega de Paquetes");
@@ -160,14 +157,14 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnEntrega);
-        btnEntrega.setBounds(50, 320, 140, 40);
+        btnEntrega.setBounds(50, 400, 140, 40);
 
         separarUsuarios.setBackground(new java.awt.Color(0, 0, 0));
         JpMenu.add(separarUsuarios);
         separarUsuarios.setBounds(0, 220, 200, 20);
 
         btnVerNoEntregados.setForeground(new java.awt.Color(255, 255, 255));
-        btnVerNoEntregados.setText("<html>Ver paquetes no entregados");
+        btnVerNoEntregados.setText("inicio");
         btnVerNoEntregados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnVerNoEntregadosMouseClicked(evt);
@@ -180,7 +177,7 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnVerNoEntregados);
-        btnVerNoEntregados.setBounds(50, 410, 140, 40);
+        btnVerNoEntregados.setBounds(50, 240, 140, 40);
 
         iconNewRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevaRuta.png"))); // NOI18N
         JpMenu.add(iconNewRuta);
@@ -208,7 +205,7 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
 
         iconQuitPuntoControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/quitPuntoControl.png"))); // NOI18N
         JpMenu.add(iconQuitPuntoControl);
-        iconQuitPuntoControl.setBounds(10, 410, 40, 40);
+        iconQuitPuntoControl.setBounds(10, 240, 40, 40);
 
         separarPuntosControl.setBackground(new java.awt.Color(0, 0, 0));
         JpMenu.add(separarPuntosControl);
@@ -305,14 +302,6 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
         btnEntrega.setForeground(Color.white);
     }//GEN-LAST:event_btnEntregaMouseExited
 
-    private void btnVerNoEntregadosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNoEntregadosMouseEntered
-        btnVerNoEntregados.setForeground(Color.GREEN);
-    }//GEN-LAST:event_btnVerNoEntregadosMouseEntered
-
-    private void btnVerNoEntregadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNoEntregadosMouseExited
-        btnVerNoEntregados.setForeground(Color.white);
-    }//GEN-LAST:event_btnVerNoEntregadosMouseExited
-
     private void btnLocalizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLocalizarMouseEntered
         btnLocalizar.setForeground(Color.GREEN);
     }//GEN-LAST:event_btnLocalizarMouseEntered
@@ -332,10 +321,10 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRecepcionMouseClicked
 
     private void btnEntregaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntregaMouseClicked
-        EditUser edit = new EditUser();
-        tituloPrincipal.setText("Editando Usuario...");
+        EntregarPaquetes entregar = new EntregarPaquetes();
+        tituloPrincipal.setText("Entrega de Paquetes...");
         JpInfo.removeAll();
-        JpInfo.add(edit, BorderLayout.CENTER);
+        JpInfo.add(entregar, BorderLayout.CENTER);
         JpInfo.revalidate();
         JpInfo.repaint();
 
@@ -355,20 +344,11 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    private void btnVerNoEntregadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNoEntregadosMouseClicked
-        CrearDestino destino = new CrearDestino();
-        tituloPrincipal.setText("Creando Destino...");
-        JpInfo.removeAll();
-        JpInfo.add(destino, BorderLayout.CENTER);
-        JpInfo.revalidate();
-        JpInfo.repaint();
-    }//GEN-LAST:event_btnVerNoEntregadosMouseClicked
-
     private void btnLocalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLocalizarMouseClicked
-        CrearRuta ruta = new CrearRuta();
-        tituloPrincipal.setText("Creando Ruta...");
+        LocalizarPaquete localizar = new LocalizarPaquete();
+        tituloPrincipal.setText("Localizando Paquetes...");
         JpInfo.removeAll();
-        JpInfo.add(ruta, BorderLayout.CENTER);
+        JpInfo.add(localizar, BorderLayout.CENTER);
         JpInfo.revalidate();
         JpInfo.repaint();
     }//GEN-LAST:event_btnLocalizarMouseClicked
@@ -389,6 +369,23 @@ public class PrincipalRecepcionista extends javax.swing.JFrame {
         JpInfo.revalidate();
         JpInfo.repaint();
     }//GEN-LAST:event_btnTarifaPrioridadMouseClicked
+
+    private void btnVerNoEntregadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNoEntregadosMouseExited
+        btnVerNoEntregados.setForeground(Color.white);
+    }//GEN-LAST:event_btnVerNoEntregadosMouseExited
+
+    private void btnVerNoEntregadosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNoEntregadosMouseEntered
+        btnVerNoEntregados.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnVerNoEntregadosMouseEntered
+
+    private void btnVerNoEntregadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNoEntregadosMouseClicked
+        Inicio inicio = new Inicio();
+        JpInfo.removeAll();
+        JpInfo.add(inicio, BorderLayout.CENTER);
+        JpInfo.revalidate();
+        JpInfo.repaint();
+
+    }//GEN-LAST:event_btnVerNoEntregadosMouseClicked
 
     public void setText(String string) {
         UserInSesion.setText(string);

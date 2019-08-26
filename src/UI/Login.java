@@ -9,7 +9,6 @@ import Models.Usuario;
 import SQL.Conexion;
 import SQL.RegistrarUsuario;
 import UI.Admin.PrincipalAdmin;
-import UI.Operador.PrincipalOperado;
 import UI.Operador.PrincipalOperado1;
 import UI.Recepcionista.PrincipalRecepcionista;
 import java.sql.SQLException;

@@ -12,10 +12,10 @@ public class RegistroPaquete {
         PreparedStatement ps = null;
 
         String query = "INSERT INTO PAQUETE (nit_cliente,Estado,tarifa_Prioridad,tarifa_libra,tarifa_destino"
-                + ",Peso,Destino,Punto_control,costo,ruta,horas_en_ruta,fecha_ingreso ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+                + ",Peso,Destino,Punto_control,costo,ruta,horas_en_ruta,fecha_ingreso, ingreso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         Date date = Date.valueOf(paquete.getFechaIngreso());
-        
+
         try {
             ps = Conexion.getConection().prepareStatement(query);
             ps.setInt(1, paquete.getCliente());
@@ -30,10 +30,11 @@ public class RegistroPaquete {
             ps.setString(10, paquete.getRuta());
             ps.setInt(11, paquete.getHorasInRuta());
             ps.setDate(12, date);
+            ps.setDouble(13, paquete.getIngreso());
             ps.execute();
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
-           ex.printStackTrace();
+            ex.printStackTrace();
             return false;
         }
     }
@@ -88,5 +89,45 @@ public class RegistroPaquete {
             ex.printStackTrace();
         }
         return false;
+    }
+
+    public static boolean entregarPaquete(Date fecha, int id) {
+
+        PreparedStatement ps = null;
+
+        String query = "UPDATE PAQUETE SET fecha_recepcion=?,Estado='Entregado' WHERE id_paquete=?";
+
+        try {
+            ps = Conexion.getConection().prepareStatement(query);
+            ps.setDate(1, fecha);
+            ps.setInt(2, id);
+            ps.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public static Date fechaPaquete(int id) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query = "SELECT fecha_ingreso FROM PAQUETE WHERE id_paquete=?";
+        try {
+            ps = Conexion.getConection().prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Date fecha = rs.getDate(1);
+                return fecha;
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * @author Gamcas
  */
 public class Paquete {
-    
 
     private int horasInRuta;
     private double costo;
@@ -27,12 +26,20 @@ public class Paquete {
     private int cliente;
     private Object idPuntoControl;
     private String ruta;
-    private String destino;         
-    
+    private String destino;
+    private double ingreso;
+
+    public double getIngreso() {
+        return ingreso;
+    }
+
+    public void setIngreso(double ingreso) {
+        this.ingreso = ingreso;
+    }
+
     public void setHorasInRuta(int horasInRuta) {
         this.horasInRuta = horasInRuta;
     }
-
 
     public void setCosto(double costo) {
         this.costo = costo;
@@ -133,21 +140,19 @@ public class Paquete {
     public String getRuta() {
         return ruta;
     }
-    
-    public static ArrayList<Paquete> ordenarPaquetesPrioridad(ArrayList<Paquete> lista){
-        ArrayList<Paquete> listaArreglada=new ArrayList<>();
-        for(int i=0;i<lista.size();i++){
-            if(lista.get(i).getTarifaPrioridad()>0){
+
+    public static ArrayList<Paquete> ordenarPaquetesPrioridad(ArrayList<Paquete> lista) {
+        ArrayList<Paquete> listaArreglada = new ArrayList<>();
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).getTarifaPrioridad() > 0) {
                 listaArreglada.add(lista.get(i));
                 lista.remove(i);
             }
         }
-        for(int i=0;i<lista.size();i++){
+        for (int i = 0; i < lista.size(); i++) {
             listaArreglada.add(lista.get(i));
         }
         return listaArreglada;
     }
-    
-    
-    
+
 }

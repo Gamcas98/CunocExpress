@@ -44,7 +44,7 @@ public class RegistroRuta {
         PreparedStatement ps=null;
         ResultSet rs =null;
         
-        String query ="SELECT Nombre FROM RUTA WHERE Destino=?";
+        String query ="SELECT Nombre FROM RUTA WHERE Destino=? AND Estado='Activo'";
         try{
             ps=Conexion.getConection().prepareStatement(query);
             ps.setString(1, destino);

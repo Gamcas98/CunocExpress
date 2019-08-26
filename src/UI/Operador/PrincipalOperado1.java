@@ -5,13 +5,16 @@
  */
 package UI.Operador;
 
-
 import UI.Info;
 import SQL.Conexion;
+import SQL.ManejoPaquetes;
 import SQL.ManejoTabla;
+import SQL.ObtenerDatos;
+import SQL.RegistroPuntoControl;
 import UI.Login;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -62,19 +65,20 @@ public class PrincipalOperado1 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        btnMover = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtHoras = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtCosto = new javax.swing.JLabel();
+        txtRuta = new javax.swing.JLabel();
+        txtPunto = new javax.swing.JLabel();
+        txtPaquete = new javax.swing.JLabel();
+        txtTarifa = new javax.swing.JLabel();
+        error = new javax.swing.JLabel();
 
         jLabel6.setText("fin");
 
@@ -158,6 +162,11 @@ public class PrincipalOperado1 extends javax.swing.JFrame {
 
             }
         ));
+        tablaOperador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaOperadorMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaOperador);
 
         jPanel1.add(jScrollPane1);
@@ -175,37 +184,43 @@ public class PrincipalOperado1 extends javax.swing.JFrame {
 
         jLabel3.setText("Ruta");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(180, 390, 120, 40);
+        jLabel3.setBounds(170, 390, 120, 40);
 
-        jButton1.setText("Mover Paquete");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(410, 670, 140, 80);
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(180, 430, 170, 50);
+        btnMover.setText("Mover Paquete");
+        btnMover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMover);
+        btnMover.setBounds(400, 670, 140, 80);
 
         jLabel4.setText("No. punto de control");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(400, 390, 120, 40);
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(400, 430, 170, 50);
 
         jLabel5.setText("Id Paquete ");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(620, 390, 120, 40);
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(620, 430, 170, 50);
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(180, 580, 170, 50);
 
         jLabel7.setText("Tarifa de Operacion");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(180, 540, 120, 40);
 
-        jLabel8.setText("Horas ");
+        jLabel8.setText("Horas (Registrar)");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(400, 540, 120, 40);
-        jPanel1.add(jTextField5);
-        jTextField5.setBounds(400, 580, 170, 50);
+
+        txtHoras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtHorasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorasKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtHoras);
+        txtHoras.setBounds(400, 580, 130, 50);
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Punto de control Seleccionado");
@@ -215,8 +230,21 @@ public class PrincipalOperado1 extends javax.swing.JFrame {
         jLabel10.setText("Costo");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(620, 540, 120, 40);
-        jPanel1.add(jTextField6);
-        jTextField6.setBounds(620, 580, 170, 50);
+        jPanel1.add(txtCosto);
+        txtCosto.setBounds(620, 580, 140, 50);
+        jPanel1.add(txtRuta);
+        txtRuta.setBounds(170, 430, 140, 50);
+        jPanel1.add(txtPunto);
+        txtPunto.setBounds(400, 430, 140, 50);
+        jPanel1.add(txtPaquete);
+        txtPaquete.setBounds(620, 430, 140, 50);
+        jPanel1.add(txtTarifa);
+        txtTarifa.setBounds(180, 580, 140, 50);
+
+        error.setBackground(new java.awt.Color(255, 0, 0));
+        error.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(error);
+        error.setBounds(360, 630, 230, 30);
 
         JpInfo.add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -246,6 +274,99 @@ public class PrincipalOperado1 extends javax.swing.JFrame {
         nombre = UserInSesion.getText();
         mostarTabla();
     }//GEN-LAST:event_formWindowOpened
+
+    private void tablaOperadorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOperadorMousePressed
+        int fila = tablaOperador.getSelectedRow();
+        txtRuta.setText(tablaOperador.getValueAt(fila, 0).toString());
+        txtPunto.setText(tablaOperador.getValueAt(fila, 1).toString());
+        if (ManejoPaquetes.obtenerPrimerPaquete(txtRuta.getText(), Integer.parseInt(txtPunto.getText())) == 0) {
+            txtPaquete.setText("No hay paquetes en cola");
+        } else {
+            txtPaquete.setText(String.valueOf(ManejoPaquetes.obtenerPrimerPaquete(txtRuta.getText(), Integer.parseInt(txtPunto.getText()))));
+        }
+
+        txtTarifa.setText(String.valueOf(ManejoPaquetes.obtenerTarifaPunto(txtRuta.getText(), Integer.parseInt(txtPunto.getText()))));
+    }//GEN-LAST:event_tablaOperadorMousePressed
+
+    private void txtHorasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasKeyTyped
+
+    }//GEN-LAST:event_txtHorasKeyTyped
+
+    private void txtHorasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasKeyReleased
+        try {
+            double costo = Double.parseDouble(txtTarifa.getText());
+            int hora = Integer.parseInt(txtHoras.getText());
+            double total = costo * hora;
+
+            txtCosto.setText(String.valueOf(total));
+            error.setText("");
+        } catch (NumberFormatException e) {
+            error.setText("solo puede ingresar numeros");
+            txtHoras.setText("");
+            txtCosto.setText("");
+        }
+    }//GEN-LAST:event_txtHorasKeyReleased
+
+    private void btnMoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoverActionPerformed
+        try {
+            if (txtRuta.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Seleccione un punto de control");
+            } else {
+                if (txtHoras.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Ingrese las horas");
+                } else {
+                    int hora = Integer.parseInt(txtHoras.getText());
+                    int horasAntiguas = ManejoPaquetes.obtenerHoras(Integer.parseInt(txtPaquete.getText()));
+                    double costo = Double.parseDouble(txtCosto.getText());
+                    double costoAntiguo = ManejoPaquetes.obtenerCosto(Integer.parseInt(txtPaquete.getText()));
+
+                    if (((Integer.parseInt(txtPunto.getText())) + 1) <= ManejoPaquetes.obtenerPuntosrRuta(txtRuta.getText())) {
+
+                        if (ObtenerDatos.obtenerPaquetesPermitidos(txtRuta.getText(), (Integer.parseInt(txtPunto.getText())) + 1)
+                                > ObtenerDatos.obtenerColaPunto(txtRuta.getText(), ObtenerDatos.obtenerColaPunto(txtRuta.getText(),
+                                        Integer.parseInt(txtPunto.getText())) + 1)) {
+
+                            ManejoPaquetes.moverPaquete(Integer.parseInt(txtPunto.getText()) + 1, Integer.parseInt(txtPaquete.getText()),
+                                    hora + horasAntiguas, costo + costoAntiguo, "Ruta");
+
+                            RegistroPuntoControl.AumentarCola(Integer.parseInt(txtPunto.getText()), (ObtenerDatos.obtenerColaPunto(txtRuta.getText(),
+                                    Integer.parseInt(txtPunto.getText())) - 1), txtRuta.getText());
+
+                            RegistroPuntoControl.AumentarCola(Integer.parseInt(txtPunto.getText()) + 1, (ObtenerDatos.obtenerColaPunto(txtRuta.getText(),
+                                    Integer.parseInt(txtPunto.getText()) + 1) + 1), txtRuta.getText());
+
+                            JOptionPane.showMessageDialog(null, "Paquete registrado");
+                            limpiar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No hay espacio en la siguiente cola");
+                        }
+
+                    } else {
+                        ManejoPaquetes.moverPaquete(null, Integer.parseInt(txtPaquete.getText()), hora + horasAntiguas, costo + costoAntiguo, "Destino");
+
+                        RegistroPuntoControl.AumentarCola(Integer.parseInt(txtPunto.getText()), (ObtenerDatos.obtenerColaPunto(txtRuta.getText(),
+                                Integer.parseInt(txtPunto.getText())) - 1), txtRuta.getText());
+
+                        JOptionPane.showMessageDialog(null, "Paquete registrado");
+                        limpiar();
+                    }
+
+                }
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "No hay paquetes en cola");
+        }
+    }//GEN-LAST:event_btnMoverActionPerformed
+
+    private void limpiar() {
+        txtCosto.setText("");
+        txtHoras.setText("");
+        txtPaquete.setText("");
+        txtPunto.setText("");
+        txtRuta.setText("");
+        txtTarifa.setText("");
+    }
 
     private void mostarTabla() {
         try {
@@ -312,8 +433,9 @@ public class PrincipalOperado1 extends javax.swing.JFrame {
     private javax.swing.JPanel JpTitulo;
     private javax.swing.JLabel UserInSesion;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnMover;
+    private javax.swing.JLabel error;
     private javax.swing.JLabel iconUserInSesion;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -327,14 +449,14 @@ public class PrincipalOperado1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JSeparator separarUserInSesion;
     private javax.swing.JTable tablaOperador;
     private javax.swing.JLabel tituloPrincipal;
+    private javax.swing.JLabel txtCosto;
+    private javax.swing.JTextField txtHoras;
+    private javax.swing.JLabel txtPaquete;
+    private javax.swing.JLabel txtPunto;
+    private javax.swing.JLabel txtRuta;
+    private javax.swing.JLabel txtTarifa;
     // End of variables declaration//GEN-END:variables
 }

@@ -45,7 +45,7 @@ public class RegistroPuntoControl {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT id_punto_control,tarifa_operacion,cantidad_paquetes,cola FROM PUNTO_DE_CONTROL WHERE Ruta=?";
+        String query = "SELECT id_punto_control,tarifa_operacion,cantidad_paquetes,cola FROM PUNTO_DE_CONTROL WHERE Ruta=? AND Estado='Activo'";
         try {
 
             ps = Conexion.getConection().prepareStatement(query);
@@ -56,7 +56,7 @@ public class RegistroPuntoControl {
                     pcontrol.setId(rs.getInt(1));
                     pcontrol.setRuta(ruta);
                     pcontrol.setTarifaOperacion(rs.getDouble(2));
-                    AumentarCola(rs.getInt(1), rs.getInt(4) + 1);
+                    AumentarCola(rs.getInt(1), rs.getInt(4) + 1, ruta);
                     return pcontrol;
                 }
             }
@@ -66,17 +66,20 @@ public class RegistroPuntoControl {
         return null;
     }
 
-    public static void AumentarCola(int id, int cola) {
+    public static void AumentarCola(int id, int cola, String ruta) {
         PreparedStatement ps = null;
-        String query = "UPDATE PUNTO_DE_CONTROL SET Cola=? WHERE id_punto_control=?";
+        String query = "UPDATE PUNTO_DE_CONTROL SET Cola=? WHERE id_punto_control=? AND Ruta=?";
 
         try {
             ps = Conexion.getConection().prepareStatement(query);
             ps.setInt(1, cola);
             ps.setInt(2, id);
+            ps.setString(3, ruta);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
+
+
 }

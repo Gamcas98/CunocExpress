@@ -1,6 +1,7 @@
 
 package cunocexpress;
 
+import SQL.ManejoReportes;
 import SQL.RegistroPaquete;
 import UI.Login;
 
@@ -16,5 +17,6 @@ public class CunocExpress {
     public static void main(String[] args) {
         Login login=new Login();
         login.setVisible(true);
+        ManejoReportes.main();
     }
 }

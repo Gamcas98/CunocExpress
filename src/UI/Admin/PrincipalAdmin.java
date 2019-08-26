@@ -12,10 +12,10 @@ import Ui.Admin.CrudRutas.CrearRuta;
 import Ui.Admin.CrudRutas.CrearDestino;
 import UI.Info;
 import SQL.Conexion;
+import UI.Admin.Reportes.ReporteRutas;
 import UI.Admin.Tarifas.EditTarifaDestino;
 import UI.Login;
 import Ui.Admin.Tarifas.Tarifas;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -79,16 +79,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         btnNuevoDestino = new javax.swing.JLabel();
         iconNewRuta = new javax.swing.JLabel();
         btnNuevaRuta = new javax.swing.JLabel();
-        iconDisabledRuta = new javax.swing.JLabel();
-        btnDesactivarRuta = new javax.swing.JLabel();
+        txtR4 = new javax.swing.JLabel();
+        btnReporteRutas = new javax.swing.JLabel();
         separarRutas = new javax.swing.JSeparator();
-        iconNewPuntoControl = new javax.swing.JLabel();
-        btnAddPuntoControl = new javax.swing.JLabel();
-        iconModiPuntoControl = new javax.swing.JLabel();
-        btnModificarPuntoControl = new javax.swing.JLabel();
-        iconQuitPuntoControl = new javax.swing.JLabel();
-        btnQuitPuntoControl = new javax.swing.JLabel();
-        separarPuntosControl = new javax.swing.JSeparator();
+        btnReporteClientes = new javax.swing.JLabel();
+        btnReportesFavoritas = new javax.swing.JLabel();
         iconTarifaOperacion = new javax.swing.JLabel();
         btnTarifaOperacion = new javax.swing.JLabel();
         iconTarifaLibra = new javax.swing.JLabel();
@@ -101,8 +96,10 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         btnCerrarSesion = new javax.swing.JButton();
         iconActivateuser = new javax.swing.JLabel();
         btnActivateuser = new javax.swing.JLabel();
-        iconDisabledRuta1 = new javax.swing.JLabel();
-        btnActivarRuta = new javax.swing.JLabel();
+        btnReportesGanancias = new javax.swing.JLabel();
+        txtR3 = new javax.swing.JLabel();
+        txtR2 = new javax.swing.JLabel();
+        txtR1 = new javax.swing.JLabel();
         JpContenedor = new javax.swing.JPanel();
         JpTitulo = new javax.swing.JPanel();
         tituloPrincipal = new javax.swing.JLabel();
@@ -245,88 +242,60 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         JpMenu.add(btnNuevaRuta);
         btnNuevaRuta.setBounds(50, 320, 140, 40);
 
-        iconDisabledRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/desRuta.png"))); // NOI18N
-        JpMenu.add(iconDisabledRuta);
-        iconDisabledRuta.setBounds(10, 360, 40, 40);
+        txtR4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reportes.png"))); // NOI18N
+        JpMenu.add(txtR4);
+        txtR4.setBounds(10, 760, 40, 40);
 
-        btnDesactivarRuta.setForeground(new java.awt.Color(255, 255, 255));
-        btnDesactivarRuta.setText("Desactivar Rutas");
-        btnDesactivarRuta.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReporteRutas.setForeground(new java.awt.Color(255, 255, 255));
+        btnReporteRutas.setText("Reporte de rutas");
+        btnReporteRutas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReporteRutasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDesactivarRutaMouseEntered(evt);
+                btnReporteRutasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDesactivarRutaMouseExited(evt);
+                btnReporteRutasMouseExited(evt);
             }
         });
-        JpMenu.add(btnDesactivarRuta);
-        btnDesactivarRuta.setBounds(50, 360, 140, 40);
+        JpMenu.add(btnReporteRutas);
+        btnReporteRutas.setBounds(50, 600, 140, 40);
 
         separarRutas.setBackground(new java.awt.Color(0, 0, 0));
         JpMenu.add(separarRutas);
-        separarRutas.setBounds(0, 460, 200, 20);
+        separarRutas.setBounds(0, 380, 200, 20);
 
-        iconNewPuntoControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/addPuntoControl.png"))); // NOI18N
-        JpMenu.add(iconNewPuntoControl);
-        iconNewPuntoControl.setBounds(10, 470, 40, 40);
-
-        btnAddPuntoControl.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        btnAddPuntoControl.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddPuntoControl.setText("Agregar Puntos de Control");
-        btnAddPuntoControl.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReporteClientes.setForeground(new java.awt.Color(255, 255, 255));
+        btnReporteClientes.setText("Reporte de Clientes");
+        btnReporteClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAddPuntoControlMouseEntered(evt);
+                btnReporteClientesMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAddPuntoControlMouseExited(evt);
+                btnReporteClientesMouseExited(evt);
             }
         });
-        JpMenu.add(btnAddPuntoControl);
-        btnAddPuntoControl.setBounds(50, 470, 140, 40);
+        JpMenu.add(btnReporteClientes);
+        btnReporteClientes.setBounds(50, 710, 140, 40);
 
-        iconModiPuntoControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/modiPuntoControl.png"))); // NOI18N
-        JpMenu.add(iconModiPuntoControl);
-        iconModiPuntoControl.setBounds(10, 560, 40, 40);
-
-        btnModificarPuntoControl.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        btnModificarPuntoControl.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificarPuntoControl.setText("Modificar Puntos de control");
-        btnModificarPuntoControl.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReportesFavoritas.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btnReportesFavoritas.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportesFavoritas.setText("Reporte de rutas favoritas");
+        btnReportesFavoritas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnModificarPuntoControlMouseEntered(evt);
+                btnReportesFavoritasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnModificarPuntoControlMouseExited(evt);
+                btnReportesFavoritasMouseExited(evt);
             }
         });
-        JpMenu.add(btnModificarPuntoControl);
-        btnModificarPuntoControl.setBounds(50, 560, 140, 40);
-
-        iconQuitPuntoControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/quitPuntoControl.png"))); // NOI18N
-        JpMenu.add(iconQuitPuntoControl);
-        iconQuitPuntoControl.setBounds(10, 520, 40, 40);
-
-        btnQuitPuntoControl.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        btnQuitPuntoControl.setForeground(new java.awt.Color(255, 255, 255));
-        btnQuitPuntoControl.setText("Quitar Puntos de Control");
-        btnQuitPuntoControl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnQuitPuntoControlMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnQuitPuntoControlMouseExited(evt);
-            }
-        });
-        JpMenu.add(btnQuitPuntoControl);
-        btnQuitPuntoControl.setBounds(50, 520, 140, 40);
-
-        separarPuntosControl.setBackground(new java.awt.Color(0, 0, 0));
-        JpMenu.add(separarPuntosControl);
-        separarPuntosControl.setBounds(0, 620, 200, 20);
+        JpMenu.add(btnReportesFavoritas);
+        btnReportesFavoritas.setBounds(50, 760, 140, 40);
 
         iconTarifaOperacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tarifaOperacion.png"))); // NOI18N
         JpMenu.add(iconTarifaOperacion);
-        iconTarifaOperacion.setBounds(10, 640, 40, 40);
+        iconTarifaOperacion.setBounds(10, 400, 40, 40);
 
         btnTarifaOperacion.setForeground(new java.awt.Color(255, 255, 255));
         btnTarifaOperacion.setText("Tarifa de Operacion");
@@ -342,11 +311,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnTarifaOperacion);
-        btnTarifaOperacion.setBounds(50, 640, 130, 40);
+        btnTarifaOperacion.setBounds(50, 400, 130, 40);
 
         iconTarifaLibra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tarifaLibra.png"))); // NOI18N
         JpMenu.add(iconTarifaLibra);
-        iconTarifaLibra.setBounds(10, 680, 40, 40);
+        iconTarifaLibra.setBounds(10, 440, 40, 40);
 
         btnTarifaLibra.setForeground(new java.awt.Color(255, 255, 255));
         btnTarifaLibra.setText("Tarifa por Libra");
@@ -362,11 +331,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnTarifaLibra);
-        btnTarifaLibra.setBounds(50, 680, 130, 40);
+        btnTarifaLibra.setBounds(50, 440, 130, 40);
 
         iconTarifaDestino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tarifaDestino.png"))); // NOI18N
         JpMenu.add(iconTarifaDestino);
-        iconTarifaDestino.setBounds(10, 760, 40, 40);
+        iconTarifaDestino.setBounds(10, 520, 40, 40);
 
         btnTarifaDestino.setForeground(new java.awt.Color(255, 255, 255));
         btnTarifaDestino.setText("Tarifa de Destino");
@@ -382,11 +351,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnTarifaDestino);
-        btnTarifaDestino.setBounds(50, 760, 130, 40);
+        btnTarifaDestino.setBounds(50, 520, 130, 40);
 
         iconTarifaPrioridad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tarifaPrioridad.png"))); // NOI18N
         JpMenu.add(iconTarifaPrioridad);
-        iconTarifaPrioridad.setBounds(10, 720, 40, 40);
+        iconTarifaPrioridad.setBounds(10, 480, 40, 40);
 
         btnTarifaPrioridad.setForeground(new java.awt.Color(255, 255, 255));
         btnTarifaPrioridad.setText("Tarifa de Prioridad");
@@ -402,11 +371,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             }
         });
         JpMenu.add(btnTarifaPrioridad);
-        btnTarifaPrioridad.setBounds(50, 720, 130, 40);
+        btnTarifaPrioridad.setBounds(50, 480, 130, 40);
 
         jSeparator7.setBackground(new java.awt.Color(0, 0, 0));
         JpMenu.add(jSeparator7);
-        jSeparator7.setBounds(0, 820, 200, 20);
+        jSeparator7.setBounds(0, 580, 200, 20);
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 255, 255));
         btnCerrarSesion.setForeground(new java.awt.Color(0, 0, 0));
@@ -439,22 +408,30 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         JpMenu.add(btnActivateuser);
         btnActivateuser.setBounds(50, 220, 140, 40);
 
-        iconDisabledRuta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/activaRuta.png"))); // NOI18N
-        JpMenu.add(iconDisabledRuta1);
-        iconDisabledRuta1.setBounds(10, 400, 40, 40);
-
-        btnActivarRuta.setForeground(new java.awt.Color(255, 255, 255));
-        btnActivarRuta.setText("Activar Rutas");
-        btnActivarRuta.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReportesGanancias.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportesGanancias.setText("Reporte de Ganancias");
+        btnReportesGanancias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnActivarRutaMouseEntered(evt);
+                btnReportesGananciasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnActivarRutaMouseExited(evt);
+                btnReportesGananciasMouseExited(evt);
             }
         });
-        JpMenu.add(btnActivarRuta);
-        btnActivarRuta.setBounds(50, 400, 140, 40);
+        JpMenu.add(btnReportesGanancias);
+        btnReportesGanancias.setBounds(50, 660, 140, 40);
+
+        txtR3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reportes.png"))); // NOI18N
+        JpMenu.add(txtR3);
+        txtR3.setBounds(10, 710, 40, 40);
+
+        txtR2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reportes.png"))); // NOI18N
+        JpMenu.add(txtR2);
+        txtR2.setBounds(10, 660, 40, 40);
+
+        txtR1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reportes.png"))); // NOI18N
+        JpMenu.add(txtR1);
+        txtR1.setBounds(10, 600, 40, 40);
 
         ContenedorPrincipal.add(JpMenu, java.awt.BorderLayout.LINE_START);
 
@@ -528,13 +505,13 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         btnNuevaRuta.setForeground(Color.white);
     }//GEN-LAST:event_btnNuevaRutaMouseExited
 
-    private void btnDesactivarRutaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesactivarRutaMouseEntered
-        btnDesactivarRuta.setForeground(Color.GREEN);
-    }//GEN-LAST:event_btnDesactivarRutaMouseEntered
+    private void btnReporteRutasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteRutasMouseEntered
+        btnReporteRutas.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnReporteRutasMouseEntered
 
-    private void btnDesactivarRutaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesactivarRutaMouseExited
-        btnDesactivarRuta.setForeground(Color.white);
-    }//GEN-LAST:event_btnDesactivarRutaMouseExited
+    private void btnReporteRutasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteRutasMouseExited
+        btnReporteRutas.setForeground(Color.white);
+    }//GEN-LAST:event_btnReporteRutasMouseExited
 
     private void btnCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseClicked
         CrearUsuario crear = new CrearUsuario();
@@ -546,21 +523,21 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCrearUsuarioMouseClicked
 
-    private void btnAddPuntoControlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddPuntoControlMouseEntered
-        btnAddPuntoControl.setForeground(Color.GREEN);
-    }//GEN-LAST:event_btnAddPuntoControlMouseEntered
+    private void btnReporteClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteClientesMouseEntered
+        btnReporteClientes.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnReporteClientesMouseEntered
 
-    private void btnAddPuntoControlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddPuntoControlMouseExited
-        btnAddPuntoControl.setForeground(Color.white);
-    }//GEN-LAST:event_btnAddPuntoControlMouseExited
+    private void btnReporteClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteClientesMouseExited
+        btnReporteClientes.setForeground(Color.white);
+    }//GEN-LAST:event_btnReporteClientesMouseExited
 
-    private void btnQuitPuntoControlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitPuntoControlMouseEntered
-        btnQuitPuntoControl.setForeground(Color.GREEN);
-    }//GEN-LAST:event_btnQuitPuntoControlMouseEntered
+    private void btnReportesFavoritasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesFavoritasMouseEntered
+        btnReportesFavoritas.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnReportesFavoritasMouseEntered
 
-    private void btnQuitPuntoControlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitPuntoControlMouseExited
-        btnQuitPuntoControl.setForeground(Color.white);
-    }//GEN-LAST:event_btnQuitPuntoControlMouseExited
+    private void btnReportesFavoritasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesFavoritasMouseExited
+        btnReportesFavoritas.setForeground(Color.white);
+    }//GEN-LAST:event_btnReportesFavoritasMouseExited
 
     private void btnTarifaDestinoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTarifaDestinoMouseEntered
         btnTarifaDestino.setForeground(Color.GREEN);
@@ -585,14 +562,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private void btnTarifaOperacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTarifaOperacionMouseExited
         btnTarifaOperacion.setForeground(Color.white);
     }//GEN-LAST:event_btnTarifaOperacionMouseExited
-
-    private void btnModificarPuntoControlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarPuntoControlMouseEntered
-        btnModificarPuntoControl.setForeground(Color.GREEN);
-    }//GEN-LAST:event_btnModificarPuntoControlMouseEntered
-
-    private void btnModificarPuntoControlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarPuntoControlMouseExited
-        btnModificarPuntoControl.setForeground(Color.white);
-    }//GEN-LAST:event_btnModificarPuntoControlMouseExited
 
     private void btnEditarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarUsuarioMouseClicked
         EditUser edit = new EditUser();
@@ -661,14 +630,14 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         JpInfo.repaint();
     }//GEN-LAST:event_btnNuevoDestinoMouseClicked
 
-    private void btnActivarRutaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarRutaMouseEntered
-        btnActivarRuta.setForeground(Color.GREEN);
-    }//GEN-LAST:event_btnActivarRutaMouseEntered
+    private void btnReportesGananciasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesGananciasMouseEntered
+        btnReportesGanancias.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnReportesGananciasMouseEntered
 
-    private void btnActivarRutaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarRutaMouseExited
-        btnActivarRuta.setForeground(Color.white);
+    private void btnReportesGananciasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesGananciasMouseExited
+        btnReportesGanancias.setForeground(Color.white);
 
-    }//GEN-LAST:event_btnActivarRutaMouseExited
+    }//GEN-LAST:event_btnReportesGananciasMouseExited
 
     private void btnNuevaRutaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevaRutaMouseClicked
         CrearRuta ruta = new CrearRuta();
@@ -714,6 +683,15 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         JpInfo.revalidate();
         JpInfo.repaint();
     }//GEN-LAST:event_btnTarifaDestinoMouseClicked
+
+    private void btnReporteRutasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteRutasMouseClicked
+           ReporteRutas reporte = new ReporteRutas();
+        tituloPrincipal.setText("Reporte...");
+        JpInfo.removeAll();
+        JpInfo.add(reporte, BorderLayout.CENTER);
+        JpInfo.revalidate();
+        JpInfo.repaint();
+    }//GEN-LAST:event_btnReporteRutasMouseClicked
 
     public void setText(String string) {
         UserInSesion.setText(string);
@@ -766,18 +744,17 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel JpMenu;
     private javax.swing.JPanel JpTitulo;
     private javax.swing.JLabel UserInSesion;
-    private javax.swing.JLabel btnActivarRuta;
     private javax.swing.JLabel btnActivateuser;
-    private javax.swing.JLabel btnAddPuntoControl;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JLabel btnCrearUsuario;
     private javax.swing.JLabel btnDesUsuario;
-    private javax.swing.JLabel btnDesactivarRuta;
     private javax.swing.JLabel btnEditarUsuario;
-    private javax.swing.JLabel btnModificarPuntoControl;
     private javax.swing.JLabel btnNuevaRuta;
     private javax.swing.JLabel btnNuevoDestino;
-    private javax.swing.JLabel btnQuitPuntoControl;
+    private javax.swing.JLabel btnReporteClientes;
+    private javax.swing.JLabel btnReporteRutas;
+    private javax.swing.JLabel btnReportesFavoritas;
+    private javax.swing.JLabel btnReportesGanancias;
     private javax.swing.JLabel btnTarifaDestino;
     private javax.swing.JLabel btnTarifaLibra;
     private javax.swing.JLabel btnTarifaOperacion;
@@ -785,14 +762,9 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel iconActivateuser;
     private javax.swing.JLabel iconCreateUser;
     private javax.swing.JLabel iconDIsabledUser;
-    private javax.swing.JLabel iconDisabledRuta;
-    private javax.swing.JLabel iconDisabledRuta1;
     private javax.swing.JLabel iconEditUser;
-    private javax.swing.JLabel iconModiPuntoControl;
     private javax.swing.JLabel iconNewDestino;
-    private javax.swing.JLabel iconNewPuntoControl;
     private javax.swing.JLabel iconNewRuta;
-    private javax.swing.JLabel iconQuitPuntoControl;
     private javax.swing.JLabel iconTarifaDestino;
     private javax.swing.JLabel iconTarifaLibra;
     private javax.swing.JLabel iconTarifaOperacion;
@@ -802,10 +774,13 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator separarPuntosControl;
     private javax.swing.JSeparator separarRutas;
     private javax.swing.JSeparator separarUserInSesion;
     private javax.swing.JSeparator separarUsuarios;
     private javax.swing.JLabel tituloPrincipal;
+    private javax.swing.JLabel txtR1;
+    private javax.swing.JLabel txtR2;
+    private javax.swing.JLabel txtR3;
+    private javax.swing.JLabel txtR4;
     // End of variables declaration//GEN-END:variables
 }

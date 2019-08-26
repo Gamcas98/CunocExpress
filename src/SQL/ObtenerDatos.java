@@ -132,16 +132,18 @@ public class ObtenerDatos {
 
     }
 
-    public static int obtenerPuntosrRuta(String nombre) {
+    
+    public static int obtenerColaPunto(String nombre, int id) {
 
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
 //consulta para ver el ultimo caso que se ingreso
-            String query = "SELECT COUNT(id_punto_control) FROM punto_de_control WHERE Ruta=?";
+            String query = "SELECT cola FROM punto_de_control WHERE Ruta=? AND id_punto_control=?";
 
             ps = Conexion.getConection().prepareStatement(query);
             ps.setString(1, nombre);
+            ps.setInt(2, id);
             rs = ps.executeQuery();
 //si rs nos trae datos
             if (rs.next()) {
@@ -155,14 +157,16 @@ public class ObtenerDatos {
         }
 
     }
-
-    public static int obtenerTarifaPunto(String nombre, int id) {
+    
+    
+    
+    public static int obtenerPaquetesPermitidos(String nombre, int id) {
 
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
 //consulta para ver el ultimo caso que se ingreso
-            String query = "SELECT tarifa_operacion FROM punto_de_control WHERE Ruta=? AND id_punto_control=?";
+            String query = "SELECT cantidad_paquetes FROM punto_de_control WHERE Ruta=? AND id_punto_control=?";
 
             ps = Conexion.getConection().prepareStatement(query);
             ps.setString(1, nombre);

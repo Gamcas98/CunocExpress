@@ -79,9 +79,9 @@ public class EnviarPaquetes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPaquetes = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         btnCrear = new javax.swing.JButton();
+        txtTotal = new javax.swing.JLabel();
         contenedorAyuda = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -263,12 +263,7 @@ public class EnviarPaquetes extends javax.swing.JPanel {
         contenedorTabla.add(jLabel13);
         jLabel13.setBounds(360, 10, 80, 50);
 
-        txtTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTotal.setEnabled(false);
-        contenedorTabla.add(txtTotal);
-        txtTotal.setBounds(130, 450, 200, 50);
-
-        jLabel18.setText("Total a Pagar");
+        jLabel18.setText("Total a Pagar:");
         contenedorTabla.add(jLabel18);
         jLabel18.setBounds(50, 450, 80, 50);
 
@@ -281,6 +276,8 @@ public class EnviarPaquetes extends javax.swing.JPanel {
         });
         contenedorTabla.add(btnCrear);
         btnCrear.setBounds(570, 440, 150, 60);
+        contenedorTabla.add(txtTotal);
+        txtTotal.setBounds(140, 450, 130, 50);
 
         add(contenedorTabla);
         contenedorTabla.setBounds(630, 400, 830, 530);
@@ -421,12 +418,23 @@ public class EnviarPaquetes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+
+        Double total = 0.0;
         Paquete paquete;
         PuntoDeControl pcontrol;
         boolean cola;
         ArrayList<Paquete> tabla = new ArrayList<>();
         for (int filaTabla = 0; filaTabla < tablaPaquetes.getRowCount(); filaTabla++) {
+
+            int peso = Integer.valueOf(tablaPaquetes.getValueAt(filaTabla, 4).toString());
+            Double tarifaLibra = Double.valueOf(tablaPaquetes.getValueAt(filaTabla, 5).toString());
+            Double totalLibra = peso * tarifaLibra;
+            Double tarifaPrioridad = Double.valueOf(tablaPaquetes.getValueAt(filaTabla, 6).toString());
+            Double tarifaDestino = Double.valueOf(tablaPaquetes.getValueAt(filaTabla, 2).toString());
+            total = tarifaPrioridad + totalLibra + tarifaDestino;
+
             paquete = new Paquete();
+            paquete.setIngreso(total);
             paquete.setCliente(Integer.parseInt(tablaPaquetes.getValueAt(filaTabla, 0).toString()));
             paquete.setDestino(tablaPaquetes.getValueAt(filaTabla, 1).toString());
             paquete.setTarifaDestino(Double.parseDouble(tablaPaquetes.getValueAt(filaTabla, 2).toString()));
@@ -436,10 +444,10 @@ public class EnviarPaquetes extends javax.swing.JPanel {
             paquete.setIdPuntoControl(null);//esta variable
             paquete.setHorasInRuta(0);
             paquete.setFechaIngreso(hoy);
-            paquete.setRuta(null);//esta
-            paquete.setCosto(0);//y esta la verdad no se si las tenga que inicializar porque solo tengo un metodo para guardar los datos en la bd
-            //asi que no se si genera algun error si los dejo en blanco, sino solo seria de crear otro metodo
+            paquete.setRuta(null);
+            paquete.setCosto(0);
             paquete.setEstado("Bodega");
+
             tabla.add(paquete);
         }
         tabla = Paquete.ordenarPaquetesPrioridad(tabla);
@@ -460,6 +468,13 @@ public class EnviarPaquetes extends javax.swing.JPanel {
             }
             RegistroPaquete.crearPaquete(paquete);
         }
+        JOptionPane.showMessageDialog(null, "Se enviaron los paquetes con exito");
+        limpiarCliente();;
+        limpiarTabla();
+        txtCliente.setText("");
+        txtTotal.setText("");
+        btnBuscar.setEnabled(true);
+
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void chkPriorizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chkPriorizarMouseClicked
@@ -573,9 +588,12 @@ public class EnviarPaquetes extends javax.swing.JPanel {
             Double tarifaPrioridad = Double.valueOf(tablaPaquetes.getValueAt(i, 6).toString());
             Double tarifaDestino = Double.valueOf(tablaPaquetes.getValueAt(i, 2).toString());
 
-            total = total + tarifaDestino + tarifaPrioridad + totalLibra;
+            double aux = 0.0;
 
+            aux = aux + tarifaDestino + tarifaPrioridad + totalLibra;
+            total = total + aux;
         }
+
         txtTotal.setText(String.valueOf(total));
     }
 
@@ -594,6 +612,14 @@ public class EnviarPaquetes extends javax.swing.JPanel {
         errorAsignar.setText("");
         chkPriorizar.setSelected(false);
 
+    }
+
+    private void limpiarCliente() {
+        txtNit.setText("");
+        txtNombre.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        txtBuscarDestino.setText("");
     }
 
     private void existeTarifa() {
@@ -664,6 +690,6 @@ public class EnviarPaquetes extends javax.swing.JPanel {
     private javax.swing.JTextField txtTarifaPorLibra;
     private javax.swing.JTextField txtTarifaPriorizacion;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtTotal;
+    private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
 }

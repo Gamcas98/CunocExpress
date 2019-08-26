@@ -54,6 +54,12 @@ public class ManejoTabla {
 
         String queryBuscarCliente = "SELECT * FROM CLIENTE WHERE Nit LIKE ?";
 
+        String queryOperador = "SELECT Ruta, id_punto_control FROM PUNTO_DE_CONTROL WHERE Usuario=?";
+
+        String queryPaquetesEnDestino = "SELECT nit_cliente, id_paquete, Destino, fecha_ingreso FROM PAQUETE WHERE Estado='Destino'";
+
+        String queryPaquetesCliente = "SELECT nit_cliente, id_paquete, Destino, Ruta,horas_en_ruta,punto_control FROM PAQUETE WHERE Estado='Ruta' AND nit_cliente=?";
+
         try {
 
             switch (consulta) {
@@ -165,6 +171,34 @@ public class ManejoTabla {
                     modelo.addColumn("Telefono");
                     modelo.addColumn("Direccion");
 
+                    break;
+                case 15:
+                    ps = Conexion.getConection().prepareStatement(queryOperador);
+                    ps.setString(1, nombre);
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Ruta");
+                    modelo.addColumn("No. Punto de Control");
+
+                    break;
+                case 16:
+                    ps = Conexion.getConection().prepareStatement(queryPaquetesEnDestino);
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Nit Cliente");
+                    modelo.addColumn("Id Paquete");
+                    modelo.addColumn("Destino");
+                    modelo.addColumn("Fecha Ingreso");
+                    break;
+                case 17:
+                    ps = Conexion.getConection().prepareStatement(queryPaquetesCliente);
+                    ps.setInt(1, Integer.parseInt(nombre));
+                    rs = ps.executeQuery();
+                    modelo.addColumn("Nit Cliente");
+                    modelo.addColumn("Id Paquete");
+                    modelo.addColumn("Destino");
+                    modelo.addColumn("Ruta");
+                    modelo.addColumn("Horas en Ruta");
+                    modelo.addColumn("punto_control");
+                    System.out.println(queryPaquetesCliente);
                     break;
 
             }
